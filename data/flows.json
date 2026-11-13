@@ -1,0 +1,2528 @@
+[
+    {
+        "id": "a7f113151a4d4e20",
+        "type": "tab",
+        "label": "Flux 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "aba54a98a7aec3f0",
+        "type": "mqtt-broker",
+        "name": "emqx mqtt broker",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c22aceb6f5111259",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "almikatro",
+        "name": "Influxdb-almikatro",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "c5072e2d4c38dcc4",
+        "type": "ui-theme",
+        "name": "Theme Principal",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "3b3cc9c994729ee8",
+        "type": "ui-base",
+        "name": "Mon Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "ed6118bd354ff55c",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "3b3cc9c994729ee8",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "c5072e2d4c38dcc4",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "tabs": [],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "f890b5b2cc5d2c2d",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "ed6118bd354ff55c",
+        "width": 12,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "keepLoaded": false,
+        "tab": ""
+    },
+    {
+        "id": "8f6636854f479ecb",
+        "type": "mqtt in",
+        "z": "a7f113151a4d4e20",
+        "name": "mqtt-in",
+        "topic": "almikatro/yahi/temp",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "aba54a98a7aec3f0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "f877b096f5626bf7",
+                "da5837259e5a79e2",
+                "5f3cab91bb6448d5",
+                "d8720bea8589d551"
+            ]
+        ]
+    },
+    {
+        "id": "f877b096f5626bf7",
+        "type": "ui-gauge",
+        "z": "a7f113151a4d4e20",
+        "name": "temp gauge",
+        "group": "f890b5b2cc5d2c2d",
+        "order": 3,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 2,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperature",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "°C",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#f00048",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "10",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "20",
+                "color": "#53ea5d",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "30",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "40",
+                "color": "#f00048",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 590,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d82c527286610df9",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "Ventlo",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 870,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "9da5b819164149a1",
+        "type": "mqtt in",
+        "z": "a7f113151a4d4e20",
+        "name": "mqtt-in",
+        "topic": "almikatro/yahi/humidity",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "aba54a98a7aec3f0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 620,
+        "wires": [
+            [
+                "71f627cc850c7ad5",
+                "2ccda66737583551",
+                "244a376a4063d3ca"
+            ]
+        ]
+    },
+    {
+        "id": "71f627cc850c7ad5",
+        "type": "ui-gauge",
+        "z": "a7f113151a4d4e20",
+        "name": "hum gauge",
+        "group": "f890b5b2cc5d2c2d",
+        "order": 11,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 2,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "humidity",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "50",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "80",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 550,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da5837259e5a79e2",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 1",
+        "func": "let chaine_brute = String(msg.payload);\n\n// Extrait automatiquement n'importe quel nombre (entier ou décimal) présent dans le texte\nlet correspondance = chaine_brute.match(/[-+]?[0-9]*\\.?[0-9]+/);\n\nif (correspondance) {\n    let valeur = parseFloat(correspondance[0]);\n\n    // Vérifie si la valeur est valide et comprise entre 0 et 50\n    if (valeur >= 0 && valeur <= 50) {\n        \n        // Seuil d'allumage Ventilo à 29\n        if (valeur >= 29) {\n            msg.payload = \"Ventilo_on\";  // \"on\" en minuscules pour correspondre à l'ESP32\n        } else {\n            msg.payload = \"Ventilo_off\"; // \"off\" en minuscules\n        }\n\n        msg.topic = \"almikatro/yahi/cmd\";\n        return msg;\n    }\n}\n\n// En cas d'échec de lecture\nnode.warn(\"Impossible d'extraire une température valide de : \" + chaine_brute);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 100,
+        "wires": [
+            [
+                "d82c527286610df9",
+                "9d92b6579f81ae85"
+            ]
+        ]
+    },
+    {
+        "id": "40fa3ad9b36f97c3",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "Pompe",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 820,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "f62106fcc13c61ae",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 2",
+        "func": "// Récupération de l'objet JSON extrait par le nœud précédent\nconst data = msg.payload;\n\n// 1. Extraction et validation de l'Humidité du Sol (Soil)\nif (data && data.hasOwnProperty(\"Soil\") && data.hasOwnProperty(\"citerne\")) {\n    \n    let valeur_Soil = parseFloat(data.Soil);\n    let valeur_Citerne = parseFloat(data.citerne);\n\n    // Vérification de la validité des deux mesures (comprises entre 0 et 100)\n    if (valeur_Soil >= 0 && valeur_Soil <= 100 && valeur_Citerne >= 0 && valeur_Citerne <= 100) {\n        \n        // Seuil d'allumage à 65\n        if (valeur_Soil <= 65 && valeur_Citerne>10) {\n            msg.payload = \"Pompe_on\";  // \"on\" en minuscules pour correspondre à l'ESP32\n        } else if (valeur_Citerne<=10){\n            msg.payload = \"Pompe_off_citerne_vide\"; // \"off\" en minuscules\n        } else {\n            msg.payload = \"Pompe_off\"; // \"off\" en minuscules\n        }\n        msg.valeurSoil = valeur_Soil;\n        msg.valeurCiterne = valeur_Citerne;\n        msg.topic = \"almikatro/yahi/cmd\";\n        return msg;\n    }\n}\n\n// En cas d'échec de lecture\nnode.warn(\"Impossible d'extraire une humidité du sol valide\" );\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 880,
+        "wires": [
+            [
+                "50e0b4f17f0185e7",
+                "7cabe9985a37e16e",
+                "40fa3ad9b36f97c3",
+                "b3d57b42813c07c9"
+            ]
+        ]
+    },
+    {
+        "id": "c58678e09370653f",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "date et heur",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<div style=\"text-align: center; padding: 15px; background-color: rgba(0,0,0,0.03); border-radius: 8px; margin-bottom: 15px; font-family: 'Segoe UI', sans-serif;\">\n    <!-- Section Date & Heure -->\n    <div style=\"margin-bottom: 6px;\">\n        <v-icon size=\"small\" color=\"primary\" style=\"margin-right: 6px;\">mdi-clock-outline</v-icon>\n        <span style=\"font-size: 16px; font-weight: 600; color: #222;\">\n            {{ currentDateTime }}\n        </span>\n    </div>\n\n\n</div>\n\n<script>\n    export default {\n        data() {\n            return {\n                currentDateTime: '',\n                timer: null\n            }\n        },\n        methods: {\n            updateTime() {\n                const now = new Date();\n                this.currentDateTime = now.toLocaleDateString('fr-FR', {\n                    weekday: 'long',\n                    day: 'numeric',\n                    month: 'long',\n                    year: 'numeric'\n                }) + ' à ' + now.toLocaleTimeString('fr-FR');\n            }\n        },\n        mounted() {\n            this.updateTime();\n            this.timer = setInterval(this.updateTime, 1000);\n        },\n        unmounted() {\n            clearInterval(this.timer);\n        }\n    }\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1730,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f3cab91bb6448d5",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "add field",
+        "func": "// Topic example: almikatro/yahi/temp\n\nconst parts = msg.topic.split(\"/\"); // Split by ‘/’\n// ['almikatro','yahi','temp']\n\nconst field = parts[parts.length - 1];   // \"temp\"\n\n\nmsg.payload = {\n    [field]: msg.payload //   temp: 30.5 \n};\n\n\nreturn msg;  // {temp: 30.5}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "d56cbef2f7feb8ec"
+            ]
+        ]
+    },
+    {
+        "id": "f91cb6ed34b65741",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 5s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1480,
+        "y": 160,
+        "wires": [
+            [
+                "d125433b50c6ed9c"
+            ]
+        ]
+    },
+    {
+        "id": "926172c599052b5c",
+        "type": "ui-chart",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "temperature",
+        "label": "temp",
+        "order": 9,
+        "chartType": "line",
+        "category": "temperature",
+        "categoryType": "str",
+        "xAxisLabel": "time",
+        "xAxisProperty": "_time",
+        "xAxisPropertyType": "property",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "temp",
+        "yAxisProperty": "_value",
+        "yAxisPropertyType": "property",
+        "ymin": "0",
+        "ymax": "50",
+        "bins": 10,
+        "action": "replace",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "5",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#1e7efa",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": false,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": false,
+        "width": 4,
+        "height": 6,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1950,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "08c29ca8683175b7",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1860,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d56cbef2f7feb8ec",
+        "type": "influxdb out",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb-almikatro",
+        "measurement": "msg",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "IOT",
+        "bucket": "almikatro",
+        "x": 730,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d125433b50c6ed9c",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb in",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -5m)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"temp\")\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1700,
+        "y": 160,
+        "wires": [
+            [
+                "926172c599052b5c",
+                "08c29ca8683175b7"
+            ]
+        ]
+    },
+    {
+        "id": "03c1feade2d76582",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 5s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1480,
+        "y": 400,
+        "wires": [
+            [
+                "fabc1f0949baea4c"
+            ]
+        ]
+    },
+    {
+        "id": "bbaf14ce22bb7f66",
+        "type": "ui-chart",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "humiditè",
+        "label": "humiditè",
+        "order": 16,
+        "chartType": "line",
+        "category": "humiditè",
+        "categoryType": "str",
+        "xAxisLabel": "time",
+        "xAxisProperty": "_time",
+        "xAxisPropertyType": "property",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "temp",
+        "yAxisProperty": "_value",
+        "yAxisPropertyType": "property",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "replace",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "5",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#1e7efa",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": false,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": false,
+        "width": 4,
+        "height": 6,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1900,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "52435386d33402e6",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1840,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "fabc1f0949baea4c",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb in",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -5m)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"humidity\")\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1700,
+        "y": 400,
+        "wires": [
+            [
+                "bbaf14ce22bb7f66",
+                "52435386d33402e6"
+            ]
+        ]
+    },
+    {
+        "id": "e36f2259d2335846",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 5s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1480,
+        "y": 640,
+        "wires": [
+            [
+                "2c0ec41a04da9242"
+            ]
+        ]
+    },
+    {
+        "id": "5db3ef40f01e27d3",
+        "type": "ui-chart",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Soil",
+        "label": "Soil Moinsture",
+        "order": 24,
+        "chartType": "line",
+        "category": "Soil",
+        "categoryType": "str",
+        "xAxisLabel": "time",
+        "xAxisProperty": "_time",
+        "xAxisPropertyType": "property",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Soil Moinsture",
+        "yAxisProperty": "_value",
+        "yAxisPropertyType": "property",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "replace",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "5",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#1e7efa",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": false,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": false,
+        "width": 4,
+        "height": 7,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1890,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c0ec41a04da9242",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb in",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -5m)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"valeurSoil\")\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1700,
+        "y": 640,
+        "wires": [
+            [
+                "5db3ef40f01e27d3",
+                "d9e3fbcc09789189"
+            ]
+        ]
+    },
+    {
+        "id": "d3c362b916a482bb",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "dehumidifier",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 850,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "2ccda66737583551",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 3",
+        "func": "let chaine_brute = String(msg.payload);\n\n// Extrait automatiquement n'importe quel nombre (entier ou décimal) présent dans le texte\nlet correspondance = chaine_brute.match(/[-+]?[0-9]*\\.?[0-9]+/);\n\nif (correspondance) {\n    let valeur = parseFloat(correspondance[0]);\n\n    // Vérifie si la valeur est valide et comprise entre 0 et 50\n    if (valeur >= 0 && valeur <= 100) {\n        \n        // Seuil d'allumage à 58\n        if (valeur >= 58) {\n            msg.payload = \"dehumidifier_on\";  // \"on\" en minuscules pour correspondre à l'ESP32\n        } else {\n            msg.payload = \"dehumidifier_off\"; // \"off\" en minuscules\n        }\n        \n        msg.topic = \"almikatro/yahi/cmd\";\n        return msg;\n    }\n}\n\n// En cas d'échec de lecture\nnode.warn(\"Impossible d'extraire une humiditè valide de : \" + chaine_brute);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 620,
+        "wires": [
+            [
+                "0587413749b4369c",
+                "d3c362b916a482bb"
+            ]
+        ]
+    },
+    {
+        "id": "2a12ad01c0015d5b",
+        "type": "ui-gauge",
+        "z": "a7f113151a4d4e20",
+        "name": "soil gauge",
+        "group": "f890b5b2cc5d2c2d",
+        "order": 18,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 2,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Soil Moinsture",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#f10920",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "50",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "80",
+                "color": "#47ea1a",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1030,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0587413749b4369c",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 4",
+        "func": "// ============================================================================\n// REFERENCE : Gestion Temporelle de Deux Dehumidificateurs avec Alarme Intégrée\n// SYSTEME : Node-RED & ESP32 MQTT Local (Broker EMQX)\n// ============================================================================\n\n// 1. Initialisation du dictionnaire de stockage historique des 30 jours\nlet historique = global.get(\"Dehumidificateur_historique\") || {};\n\n// Formatage manuel de la date d'aujourd'hui (DD/MM/YYYY)\nconst d = new Date();\nconst jour = String(d.getDate()).padStart(2, '0');\nconst mois = String(d.getMonth() + 1).padStart(2, '0');\nconst annee = d.getFullYear();\nconst dateAujourdhui = jour + \"/\" + mois + \"/\" + annee;\n\n// Initialisation des variables de suivi de session et migration automatique si nécessaire\nif (historique[dateAujourdhui] === undefined) {\n    historique[dateAujourdhui] = { principal: 0, supplementaire: 0 };\n} else if (typeof historique[dateAujourdhui] === 'number') {\n    const ancienneValeur = historique[dateAujourdhui];\n    historique[dateAujourdhui] = { principal: ancienneValeur, supplementaire: 0 };\n}\n\ncontext.allumeA = context.allumeA || 0;\ncontext.allumeSupA = context.allumeSupA || 0; // Mémoire de démarrage du Dehumidificateur supplémentaire\n\n\n// Variable temporaire pour l'empaquetage de l'alarme\nlet msgAlarme = null;\n\n// 2. Gestion du chronométrage en direct du Dehumidificateur Principal\nif (msg.payload === \"dehumidifier_on\") {\n    if (context.allumeA === 0) {\n        context.allumeA = Date.now(); // Top départ principal\n        msgAlarme = {\n            payload: \"Pas_d'alarme_Dehumidificateur\",\n            message: \"Le Dehumidificateur fonctionne en continu depuis moins de 5 minutes !\"\n        };\n    } else {\n        // SURVEILLANCE : Si le Dehumidificateur est déjà ON, calcul de l'écart continu\n        let tempsActuelSec = Math.round((Date.now() - context.allumeA) / 1000);\n        if (tempsActuelSec >= 100) { // Seuil d'alarme personnalisé (en secondes)\n            msgAlarme = {\n                payload: \"ALARME_DEHUMIDIFIER_TIMEOUT\",\n                duree: tempsActuelSec,\n                message: \"Le Dehumidificateur fonctionne en continu depuis plus de 5 minutes !\"\n            };\n            \n            // DÉCLENCHEMENT AUTOMATIQUE du Dehumidificateur Supplémentaire\n            if (context.allumeSupA === 0) {\n                context.allumeSupA = Date.now(); // Top départ supplémentaire\n            }\n        }\n    }\n}\nelse if (msg.payload === \"dehumidifier_off\" && context.allumeA > 0) {\n    // Calcul de la session du Dehumidificateur principal\n    let tempsEcouleSec = Math.round((Date.now() - context.allumeA) / 1000);\n    historique[dateAujourdhui].principal += tempsEcouleSec;\n    context.allumeA = 0; // Réinitialisation\n\n    // Extinction synchrone et calcul de la session du Dehumidificateur supplémentaire\n    if (context.allumeSupA > 0) {\n        let tempsSupSec = Math.round((Date.now() - context.allumeSupA) / 1000);\n        historique[dateAujourdhui].supplementaire += tempsSupSec;\n        context.allumeSupA = 0; // Réinitialisation\n    }\n    \n    msgAlarme = {\n        payload: \"Pas_d'alarme_Dehumidificateur\",\n        message: \"Le Dehumidificateur fonctionne en continu depuis moins de 5 minutes !\"\n    };\n}\n\n// 3. Nettoyage automatique glissant pour ne garder STRICTEMENT que les 30 derniers jours\nlet clesDates = Object.keys(historique);\nif (clesDates.length > 30) {\n    clesDates.sort((a, b) => {\n        const partA = a.split('/');\n        const partB = b.split('/');\n        const isoA = partA[2] + partA[1] + partA[0]; // Format YYYYMMDD pour comparaison textuelle\n        const isoB = partB[2] + partB[1] + partB[0];\n        return isoA.localeCompare(isoB);\n    });\n\n    while (clesDates.length > 30) {\n        delete historique[clesDates.shift()]; // Supprime le jour le plus ancien\n    }\n}\n\n// Sauvegarde finale dans la mémoire globale persistante du serveur\nglobal.set(\"Dehumidificateur_historique\", historique);\n\n// Préparation des métadonnées de transmission pour le nœud d'affichage\nmsg.historiqueGlobal = historique;\nmsg.dateActuelle = dateAujourdhui;\nmsg.allumeA = context.allumeA; \nmsg.allumeSupA = context.allumeSupA;\n\n// SORTIES MULTIPLES : Sortie 1 (Haut) -> Graphique | Sortie 2 (Bas) -> Alarme MQTT/Notification\nreturn [msg, msgAlarme];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 620,
+        "wires": [
+            [
+                "50860a07992da7ed"
+            ],
+            [
+                "5d9bf1ada3b0706f",
+                "50860a07992da7ed"
+            ]
+        ]
+    },
+    {
+        "id": "9d92b6579f81ae85",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 5",
+        "func": "// 1. Initialisation du dictionnaire de stockage historique des 30 jours\nlet historique = global.get(\"Ventilo_historique\") || {};\n\n// Formatage manuel de la date d'aujourd'hui (DD/MM/YYYY)\nconst d = new Date();\nconst jour = String(d.getDate()).padStart(2, '0');\nconst mois = String(d.getMonth() + 1).padStart(2, '0');\nconst annee = d.getFullYear();\nconst dateAujourdhui = jour + \"/\" + mois + \"/\" + annee;\n\n// Initialisation des variables de suivi de session et migration automatique si nécessaire\nif (historique[dateAujourdhui] === undefined) {\n    historique[dateAujourdhui] = { principal: 0, supplementaire: 0 };\n} else if (typeof historique[dateAujourdhui] === 'number') {\n    const ancienneValeur = historique[dateAujourdhui];\n    historique[dateAujourdhui] = { principal: ancienneValeur, supplementaire: 0 };\n}\n\ncontext.allumeA = context.allumeA || 0;\ncontext.allumeSupA = context.allumeSupA || 0; // Mémoire de démarrage du ventilateur supplémentaire\n\n// Variable temporaire pour stocker l'alarme\nlet msgAlarme = null;\n\n// 2. Gestion du chronométrage en direct\nif (msg.payload === \"Ventilo_on\") {\n    if (context.allumeA === 0) {\n        context.allumeA = Date.now();\n        msgAlarme = {\n            payload: \"Pas_d'alarme_Ventilo\",\n            message: \"Le ventilateur fonctionne en continu depuis moin de 5 minutes !\"\n        };\n    } else {\n        // AJOUT SÉCURITÉ : Si le ventilateur est déjà ON, on vérifie s'il dépasse le temps d'alarme\n        let tempsActuelSec = Math.round((Date.now() - context.allumeA) / 1000);\n        if (tempsActuelSec >= 100) { ///////////// temps d'alarme en secondes\n            msgAlarme = {\n                payload: \"ALARME_VENTILO_TIMEOUT\",\n                duree: tempsActuelSec,\n                message: \"Le ventilateur fonctionne en continu depuis plus de 5 minutes !\"\n            };\n            \n            // Si l'alarme se déclenche, on démarre le chrono du ventilateur supplémentaire\n            if (context.allumeSupA === 0) {\n                context.allumeSupA = Date.now();\n            }\n        }\n    }\n}\nelse if (msg.payload === \"Ventilo_off\" && context.allumeA > 0) {\n    let tempsEcouleSec = Math.round((Date.now() - context.allumeA) / 1000);\n    historique[dateAujourdhui].principal += tempsEcouleSec;\n    context.allumeA = 0;\n    \n    // Si le ventilateur principal s'arrête, le supplémentaire s'arrête aussi et enregistre son temps\n    if (context.allumeSupA > 0) {\n        let tempsSupSec = Math.round((Date.now() - context.allumeSupA) / 1000);\n        historique[dateAujourdhui].supplementaire += tempsSupSec;\n        context.allumeSupA = 0;\n    }\n    \n    msgAlarme = {\n        payload: \"Pas_d'alarme_Ventilo\",\n        message: \"Le ventilateur fonctionne en continu depuis moin de 5 minutes !\"\n    };\n}\n\n// 3. Nettoyage automatique pour ne garder STRICTEMENT que les 30 derniers jours\nlet clesDates = Object.keys(historique);\nif (clesDates.length > 30) {\n    clesDates.sort((a, b) => {\n        const partA = a.split('/');\n        const partB = b.split('/');\n        const isoA = partA[2] + partA[1] + partA[0];\n        const isoB = partB[2] + partB[1] + partB[0];\n        return isoA.localeCompare(isoB);\n    });\n\n    while (clesDates.length > 30) {\n        delete historique[clesDates.shift()];\n    }\n}\n\n// Sauvegarde dans le contexte global persistant\nglobal.set(\"Ventilo_historique\", historique);\n\n// On transmet toutes les données requises au template\nmsg.historiqueGlobal = historique;\nmsg.dateActuelle = dateAujourdhui;\nmsg.allumeA = context.allumeA; // Transmet le repère de temps réel principal\nmsg.allumeSupA = context.allumeSupA; // Transmet le repère de temps réel supplémentaire\n\n// ENVOI MULTIPLE : Sortie 1 (Haut) reçoit msg pour la carte. Sortie 2 (Bas) reçoit l'alarme si elle existe.\n\nglobal.set(\"actuel_allumeA_Ventilateur\", context.allumeA || 0);\nglobal.set(\"actuel_allumeSupA_Ventilateur\", context.allumeSupA || 0);\n\nreturn [msg, msgAlarme];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 100,
+        "wires": [
+            [
+                "ebc876651d284d46"
+            ],
+            [
+                "ebc876651d284d46",
+                "7bc7dbd247a9aa9b"
+            ]
+        ]
+    },
+    {
+        "id": "ebc876651d284d46",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Ventilo template",
+        "order": 5,
+        "width": 4,
+        "height": 9,
+        "head": "",
+        "format": "<div style=\"text-align: center; padding: 15px; background-color: rgba(0,0,0,0.02); border-radius: 8px;\">\n    \n    <!-- Bandeau d'alarme visuelle (S'affiche uniquement si l'alarme est active) -->\n    <div v-if=\"alarmeActive\" class=\"alarme-flash-container\">\n        <v-icon size=\"36\" color=\"#f44336\" class=\"mr-2\">\n            mdi-alert\n        </v-icon>\n        <span class=\"alarme-texte-message\">\n            Défaut de fonctionnement ventilateur\n        </span>\n        <v-btn icon=\"mdi-close\" variant=\"text\" size=\"small\" color=\"black\" class=\"ml-auto\" @click=\"alarmeActive = false\"></v-btn>\n    </div>\n\n    <!-- CONFIGURATION EN LIGNE DES DEUX VENTILATEURS (CÔTE À CÔTE) -->\n    <div style=\"display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 15px;\">\n        \n        <!-- 1. VENTILATEUR PRINCIPAL -->\n        <div style=\"flex: 1; text-align: center;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'fan-spinning': isRunning }\"\n                :style=\"{ color: isRunning ? '#2196f3' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-fan\n            </v-icon>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Ventilateur Principal : <br>\n                <span :style=\"{ color: isRunning ? '#2196f3' : '#f44336' }\">\n                    {{ isRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n        <!-- 2. VENTILATEUR SUPPLÉMENTAIRE (Placé exactement à droite) -->\n        <div style=\"flex: 1; text-align: center; border-left: 1px dashed #ccc; padding-left: 20px;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'fan-spinning': isExtraRunning }\"\n                :style=\"{ color: isExtraRunning ? '#4caf50' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-fan\n            </v-icon>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Ventilateur Supplémentaire : <br>\n                <span :style=\"{ color: isExtraRunning ? '#4caf50' : '#f44336' }\">\n                    {{ isExtraRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n    </div>\n\n    <!-- Sélection de la date via un Calendrier standard -->\n    <div style=\"margin-top: 15px; padding-top: 12px; border-top: 1px dashed #ccc;\">\n        <v-text-field\n            v-model=\"inputDate\"\n            type=\"date\"\n            label=\"Choisir une date\"\n            variant=\"outlined\"\n            density=\"compact\"\n            prepend-inner-icon=\"mdi-calendar\"\n            :min=\"minDateInput\"\n            :max=\"maxDateInput\"\n            hide-details\n        ></v-text-field>\n    </div>\n\n    <!-- DOUBLE AFFICHAGE DES CUMULS DE CHAQUE APPAREIL -->\n    <div style=\"display: flex; gap: 10px; margin-top: 12px;\">\n        <!-- Cumul Principal -->\n        <div style=\"flex: 1; background: rgba(33, 150, 243, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Principal :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulPrincipalAffiche > 0 ? '#1976d2' : '#c62828' }\">\n                {{ formatTemps(cumulPrincipalAffiche) }}\n            </div>\n        </div>\n        <!-- Cumul Supplémentaire -->\n        <div style=\"flex: 1; background: rgba(76, 175, 80, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Supplémentaire :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulSupAffiche > 0 ? '#2e7d32' : '#c62828' }\">\n                {{ formatTemps(cumulSupAffiche) }}\n            </div>\n        </div>\n    </div>\n</div>\n\n<script>\n    export default {\n        data() {\n            const aujourdhui = new Date();\n            const ilYa30Jours = new Date();\n            ilYa30Jours.setDate(aujourdhui.getDate() - 30);\n\n            const formatLocalHTML = (d) => {\n                const yyyy = d.getFullYear();\n                const mm = String(d.getMonth() + 1).padStart(2, '0');\n                const dd = String(d.getDate()).padStart(2, '0');\n                return `${yyyy}-${mm}-${dd}`;\n            };\n\n            return {\n                inputDate: formatLocalHTML(aujourdhui), \n                minDateInput: formatLocalHTML(ilYa30Jours), \n                maxDateInput: formatLocalHTML(aujourdhui),   \n                dbHistorique: {},\n                timestampDemarrage: 0,\n                timestampSupDemarrage: 0,\n                secondesEnCours: 0,\n                secondesSupEnCours: 0,\n                intervalTimer: null,\n                alarmeActive: false,\n                isExtraRunning: false\n            }\n        },\n        computed: {\n            isRunning() {\n                return this.timestampDemarrage > 0;\n            },\n            // CORRECTION DE LA SYNTAXE : Extraction propre, [1], [0]\n            selectedDateFR() {\n                if (!this.inputDate) return '';\n                const parts = this.inputDate.split('-');\n                return `${parts[2]}/${parts[1]}/${parts[0]}`;\n            },\n            // Calcul du cumul temps réel - Ventilateur Principal\n            cumulPrincipalAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.principal || 0) : (typeof jourDonnees === 'number' ? jourDonnees : 0);\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesEnCours;\n                }\n                return baseSec;\n            },\n            // Calcul du cumul temps réel - Ventilateur Supplémentaire\n            cumulSupAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.supplementaire || 0) : 0;\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isExtraRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesSupEnCours;\n                }\n                return baseSec;\n            }\n        },\n        watch: {\n            msg: {\n                handler(newMsg) {\n                    if (newMsg?.historiqueGlobal) {\n                        this.dbHistorique = newMsg.historiqueGlobal;\n                    }\n                    if (newMsg?.allumeA !== undefined) {\n                        this.timestampDemarrage = newMsg.allumeA;\n                        if (newMsg.allumeA === 0) {\n                            this.alarmeActive = false;\n                        }\n                    }\n                    if (newMsg?.allumeSupA !== undefined) {\n                        this.timestampSupDemarrage = newMsg.allumeSupA;\n                    }\n                    \n                    // GESTION DES ALARMES ET DU VENTILATEUR SUPPLÉMENTAIRE\n                    if (newMsg?.payload === \"ALARME_VENTILO_TIMEOUT\") {\n                        this.alarmeActive = true;\n                        this.isExtraRunning = true;\n                    }\n                    if (newMsg?.payload === \"Pas_d'alarme_Ventilo\") {\n                        this.alarmeActive = false;\n                        this.isExtraRunning = false;\n                    }\n                },\n                deep: true,\n                immediate: true\n            }\n        },\n        methods: {\n            formatTemps(totalSecondes) {\n                if (totalSecondes === 0 || !totalSecondes) {\n                    return \"Pas de données\";\n                }\n                let heures = Math.floor(totalSecondes / 3600);\n                let minutes = Math.floor((totalSecondes % 3600) / 60);\n                let secondes = totalSecondes % 60;\n                \n                let texte = \"\";\n                if (heures > 0) texte += heures + \" h \";\n                texte += minutes + \" min \" + secondes + \" sec\";\n                return texte;\n            }\n        },\n        mounted() {\n            this.intervalTimer = setInterval(() => {\n                if (this.timestampDemarrage > 0) {\n                    this.secondesEnCours = Math.round((Date.now() - this.timestampDemarrage) / 1000);\n                } else {\n                    this.secondesEnCours = 0;\n                }\n                if (this.timestampSupDemarrage > 0) {\n                    this.secondesSupEnCours = Math.round((Date.now() - this.timestampSupDemarrage) / 1000);\n                } else {\n                    this.secondesSupEnCours = 0;\n                }\n            }, 1000);\n        },\n        unmounted() {\n            clearInterval(this.intervalTimer);\n        }\n    }\n</script>\n\n<style scoped>\n    @keyframes spin {\n        0% { transform: rotate(0deg); }\n        100% { transform: rotate(360deg); }\n    }\n    .fan-spinning {\n        animation: spin 1s linear infinite;\n    }\n\n    @keyframes alarmeClignote {\n        0% { background-color: #ffffff; }     \n        50% { background-color: #ffeb3b; }    \n        100% { background-color: #ffffff; }   \n    }\n\n    .alarme-flash-container {\n        display: flex;\n        align-items: center;\n        justify-content: flex-start;\n        padding: 12px 16px;\n        margin-bottom: 16px;\n        border: 2px solid #f44336;           \n        border-radius: 8px;\n        animation: alarmeClignote 1.2s infinite ease-in-out; \n        box-shadow: 0 3px 8px rgba(244, 67, 54, 0.2);\n    }\n    .alarme-texte-message {\nfont-family: sans-serif;\nfont-size: 14px;\nfont-weight: 700;\ncolor: #000000;\ntext-align: left;\nline-height: 1.3;\n    }\n</style>\n",
+        "noerr": 0,
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1080,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b3d57b42813c07c9",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 6",
+        "func": "// ============================================================================\n// REFERENCE : Gestion Temporelle de Deux Pompes avec Alarme Intégrée\n// SYSTEME : Node-RED & ESP32 MQTT Local (Broker EMQX)\n// ============================================================================\n\n// 1. Initialisation du dictionnaire de stockage historique des 30 jours\nlet historique = global.get(\"Pompe_historique\") || {};\n\n// Formatage manuel et robuste de la date d'aujourd'hui (DD/MM/YYYY)\nconst d = new Date();\nconst jour = String(d.getDate()).padStart(2, '0');\nconst mois = String(d.getMonth() + 1).padStart(2, '0');\nconst annee = d.getFullYear();\nconst dateAujourdhui = jour + \"/\" + mois + \"/\" + annee;\n\n// Initialisation et migration de la structure double-compteur par date\nif (historique[dateAujourdhui] === undefined) {\n    historique[dateAujourdhui] = { principal: 0, supplementaire: 0 };\n} else if (typeof historique[dateAujourdhui] === 'number') {\n    // Migration automatique de l'ancien format simple vers le format d'objet double\n    const ancienneValeur = historique[dateAujourdhui];\n    historique[dateAujourdhui] = { principal: ancienneValeur, supplementaire: 0 };\n}\n\n// Persistance des repères de session dans le contexte local du nœud\ncontext.allumeA = context.allumeA || 0;\ncontext.allumeSupA = context.allumeSupA || 0;\n\n\n// Variable temporaire pour l'empaquetage de l'alarme\nlet msgAlarme = null;\n \n// 2. Gestion du chronométrage en direct du Pompe Principal\nif (msg.payload === \"Pompe_on\") {\n    let tempsEcouleSec = Math.round((Date.now() - context.allumeA) / 1000);\n    if (context.allumeA === 0) {\n        context.allumeA = Date.now(); // Top départ principal\n        msgAlarme = {\n            payload: \"Pas_d'alarme_Pompe\",\n            message: \"Le Pompe fonctionnes !\"\n        };\n\n        } else {\n        let tempsActuelSec = Math.round((Date.now() - context.allumeA) / 1000);\n        if (tempsActuelSec >= 100) { // Seuil d'alarme personnalisé (en secondes)\n            msgAlarme = {\n                payload: \"ALARME_POMPE_TIMEOUT\",\n                duree: tempsActuelSec,\n                message: \"Le Pompe fonctionne en continu depuis plus de 5 minutes !\"\n            };\n\n            // DÉCLENCHEMENT AUTOMATIQUE du Pompe Supplémentaire\n            if (context.allumeSupA === 0) {\n                context.allumeSupA = Date.now(); // Top départ supplémentaire\n            }\n        }\n        } \n        }\n        else if (msg.payload === \"Pompe_off_citerne_vide\"){\n    // Calcul de la session du Pompe principal\n    if (context.allumeA > 0) {\n    let tempsEcouleSec = Math.round((Date.now() - context.allumeA) / 1000);\n    historique[dateAujourdhui].principal += tempsEcouleSec;\n    context.allumeA = 0; // Réinitialisation\n    }\n    // Extinction synchrone et calcul de la session du pompe supplémentaire\n    if (context.allumeSupA > 0) {\n        let tempsSupSec = Math.round((Date.now() - context.allumeSupA) / 1000);\n        historique[dateAujourdhui].supplementaire += tempsSupSec;\n        context.allumeSupA = 0; // Réinitialisation\n    }\n\n    \n    msgAlarme = {\n        payload: \"Pompe_off_citerne_vide\",\n        message: \"Pompe_off_citerne_vide !\"\n    };\n            \n        } else if (msg.payload === \"Pompe_off\" && context.allumeA > 0) {\n    // Calcul de la session du Pompe principal\n\n    let tempsEcouleSec = Math.round((Date.now() - context.allumeA)/1000);\n     if (context.allumeA > 0) {\n    historique[dateAujourdhui].principal += tempsEcouleSec;\n    context.allumeA = 0; // Réinitialisation\n     }\n    // Extinction synchrone et calcul de la session du pompe supplémentaire\n    if (context.allumeSupA > 0) {\n        let tempsSupSec = Math.round((Date.now() - context.allumeSupA) / 1000);\n        historique[dateAujourdhui].supplementaire += tempsSupSec;\n        context.allumeSupA = 0; // Réinitialisation\n    }\n\n    \n    msgAlarme = {\n        payload: \"Pas_d'alarme_Pompe\",\n        message: \"Le Pompe fonctionne en continu depuis moins de 5 minutes !\"\n    };\n} \n\n\n// 3. Nettoyage automatique glissant pour ne garder STRICTEMENT que les 30 derniers jours\nlet clesDates = Object.keys(historique);\nif (clesDates.length > 30) {\n    clesDates.sort((a, b) => {\n        const partA = a.split('/');\n        const partB = b.split('/');\n        const isoA = partA[2] + partA[1] + partA[0]; // Format YYYYMMDD pour comparaison textuelle\n        const isoB = partB[2] + partB[1] + partB[0];\n        return isoA.localeCompare(isoB);\n    });\n    while (clesDates.length > 30) {\n        delete historique[clesDates.shift()]; // Supprime le jour le plus ancien\n    }\n}\n\n// Sauvegarde finale dans la mémoire globale persistante du serveur\nglobal.set(\"Pompe_historique\", historique);\n\n// Préparation des métadonnées de transmission pour le nœud d'affichage\nmsg.historiqueGlobal = historique;\nmsg.dateActuelle = dateAujourdhui;\nmsg.allumeA = context.allumeA; \nmsg.allumeSupA = context.allumeSupA;\n\n// SORTIES MULTIPLES : Sortie 1 (Haut) -> Graphique | Sortie 2 (Bas) -> Alarme MQTT/Notification\nreturn [msg, msgAlarme];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 880,
+        "wires": [
+            [
+                "8d0bf48d0cdfb406",
+                "582505864167b6c6",
+                "8c37a0d6b7602e85"
+            ],
+            [
+                "8d0bf48d0cdfb406",
+                "582505864167b6c6",
+                "8c37a0d6b7602e85"
+            ]
+        ]
+    },
+    {
+        "id": "fab108660f3a927d",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "chauffage",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 860,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1c93239cd31f44db",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 7",
+        "func": "// ============================================================================\n// REFERENCE : Gestion Temporelle de Deux Chauffages avec Alarme Intégrée\n// SYSTEME : Node-RED & ESP32 MQTT Local (Broker EMQX)\n// ============================================================================\n\n// 1. Initialisation du dictionnaire de stockage historique des 30 jours\nlet historique = global.get(\"chauffage_historique\") || {};\n\n// Formatage manuel de la date d'aujourd'hui (DD/MM/YYYY)\nconst d = new Date();\nconst jour = String(d.getDate()).padStart(2, '0');\nconst mois = String(d.getMonth() + 1).padStart(2, '0');\nconst annee = d.getFullYear();\nconst dateAujourdhui = jour + \"/\" + mois + \"/\" + annee;\n\n// Initialisation des variables de suivi de session et migration automatique si nécessaire\nif (historique[dateAujourdhui] === undefined) {\n    historique[dateAujourdhui] = { principal: 0, supplementaire: 0 };\n} else if (typeof historique[dateAujourdhui] === 'number') {\n    const ancienneValeur = historique[dateAujourdhui];\n    historique[dateAujourdhui] = { principal: ancienneValeur, supplementaire: 0 };\n}\n\ncontext.allumeA = context.allumeA || 0;\ncontext.allumeSupA = context.allumeSupA || 0; // Mémoire de démarrage du ventilateur supplémentaire\n\n\n// Variable temporaire pour l'empaquetage de l'alarme\nlet msgAlarme = null;\n\n// 2. Gestion du chronométrage en direct du Chauffage Principal\nif (msg.payload === \"chauffage_on\") {\n    if (context.allumeA === 0) {\n        context.allumeA = Date.now(); // Top départ principal\n        msgAlarme = {\n            payload: \"Pas_d'alarme_Chauffage\",\n            message: \"Le chauffage fonctionne en continu depuis moins de 5 minutes !\"\n        };\n    } else {\n        // SURVEILLANCE : Si le chauffage est déjà ON, calcul de l'écart continu\n        let tempsActuelSec = Math.round((Date.now() - context.allumeA) / 1000);\n        if (tempsActuelSec >= 100) { // Seuil d'alarme personnalisé (en secondes)\n            msgAlarme = {\n                payload: \"ALARME_CHAUFFAGE_TIMEOUT\",\n                duree: tempsActuelSec,\n                message: \"Le chauffage fonctionne en continu depuis plus de 5 minutes !\"\n            };\n            \n            // DÉCLENCHEMENT AUTOMATIQUE du Chauffage Supplémentaire\n            if (context.allumeSupA === 0) {\n                context.allumeSupA = Date.now(); // Top départ supplémentaire\n            }\n        }\n    }\n}\nelse if (msg.payload === \"chauffage_off\" && context.allumeA > 0) {\n    // Calcul de la session du chauffage principal\n    let tempsEcouleSec = Math.round((Date.now() - context.allumeA) / 1000);\n    historique[dateAujourdhui].principal += tempsEcouleSec;\n    context.allumeA = 0; // Réinitialisation\n    \n    // Extinction synchrone et calcul de la session du chauffage supplémentaire\n    if (context.allumeSupA > 0) {\n        let tempsSupSec = Math.round((Date.now() - context.allumeSupA) / 1000);\n        historique[dateAujourdhui].supplementaire += tempsSupSec;\n        context.allumeSupA = 0; // Réinitialisation\n    }\n    \n    msgAlarme = {\n        payload: \"Pas_d'alarme_Chauffage\",\n        message: \"Le chauffage fonctionne en continu depuis moins de 5 minutes !\"\n    };\n}\n\n// 3. Nettoyage automatique glissant pour ne garder STRICTEMENT que les 30 derniers jours\nlet clesDates = Object.keys(historique);\nif (clesDates.length > 30) {\n    clesDates.sort((a, b) => {\n        const partA = a.split('/');\n        const partB = b.split('/');\n        const isoA = partA[2] + partA[1] + partA[0]; // Format YYYYMMDD pour comparaison textuelle\n        const isoB = partB[2] + partB[1] + partB[0];\n        return isoA.localeCompare(isoB);\n    });\n\n    while (clesDates.length > 30) {\n        delete historique[clesDates.shift()]; // Supprime le jour le plus ancien\n    }\n}\n\n// Sauvegarde finale dans la mémoire globale persistante du serveur\nglobal.set(\"chauffage_historique\", historique);\n\n// Préparation des métadonnées de transmission pour le nœud d'affichage\nmsg.historiqueGlobal = historique;\nmsg.dateActuelle = dateAujourdhui;\nmsg.allumeA = context.allumeA; \nmsg.allumeSupA = context.allumeSupA;\n\n// SORTIES MULTIPLES : Sortie 1 (Haut) -> Graphique | Sortie 2 (Bas) -> Alarme MQTT/Notification\nglobal.set(\"actuel_allumeA_Chauffage\", context.allumeA || 0);\nglobal.set(\"actuel_allumeSupA_Chauffage\", context.allumeSupA || 0);\n\nreturn [msg, msgAlarme];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 380,
+        "wires": [
+            [
+                "646800820526bd48"
+            ],
+            [
+                "646800820526bd48",
+                "255a35e676b39bd6"
+            ]
+        ]
+    },
+    {
+        "id": "646800820526bd48",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Chauffage template",
+        "order": 6,
+        "width": 4,
+        "height": 9,
+        "head": "",
+        "format": "<!-- ============================================================================ -->\n<!-- REFERENCE : Vue.js 3 Template - Double Chauffage & Doubles Cumuls Réactifs   -->\n<!-- DESIGN : Intégration Vuetify 3 / Dashboard 2.0 avec Clignotement d'Alerte    -->\n<!-- ============================================================================ -->\n\n<div style=\"text-align: center; padding: 15px; background-color: rgba(0,0,0,0.02); border-radius: 8px;\">\n    \n    <!-- BANDEAU D'ALARME VISUELLE FLASHEE (Conditionné sur la variable alarmeActive) -->\n    <div v-if=\"alarmeActive\" class=\"alarme-flash-container\">\n        <v-icon size=\"36\" color=\"#f44336\" class=\"mr-2\">\n            mdi-alert\n        </v-icon>\n        <span class=\"alarme-texte-message\">\n            Défaut de fonctionnement chauffage\n        </span>\n        <v-btn icon=\"mdi-close\" variant=\"text\" size=\"small\" color=\"black\" class=\"ml-auto\" @click=\"alarmeActive = false\"></v-btn>\n    </div>\n\n    <!-- ZONE DE RENDU EN LIGNE DES DEUX APPAREILS (CÔTE À CÔTE) -->\n    <div style=\"display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 15px;\">\n        \n        <!-- COMPOSANT : CHAUFFAGE PRINCIPAL -->\n        <div style=\"flex: 1; text-align: center;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'heater-active': isRunning }\"\n                :style=\"{ color: isRunning ? '#ff5722' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-radiator\n            </v-icon>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Chauffage Principal : <br>\n                <span :style=\"{ color: isRunning ? '#ff5722' : '#f44336' }\">\n                    {{ isRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n        <!-- COMPOSANT : CHAUFFAGE SUPPLÉMENTAIRE -->\n        <div style=\"flex: 1; text-align: center; border-left: 1px dashed #ccc; padding-left: 20px;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'heater-active': isExtraRunning }\"\n                :style=\"{ color: isExtraRunning ? '#4caf50' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-radiator\n            </v-icon>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Chauffage Supplémentaire : <br>\n                <span :style=\"{ color: isExtraRunning ? '#4caf50' : '#f44336' }\">\n                    {{ isExtraRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n    </div>\n\n    <!-- CALENDRIER DE SELECTION DE L'HISTORIQUE -->\n    <div style=\"margin-top: 15px; padding-top: 12px; border-top: 1px dashed #ccc;\">\n        <v-text-field\n            v-model=\"inputDate\"\n            type=\"date\"\n            label=\"Choisir une date\"\n            variant=\"outlined\"\n            density=\"compact\"\n            prepend-inner-icon=\"mdi-calendar\"\n            :min=\"minDateInput\"\n            :max=\"maxDateInput\"\n            hide-details\n        ></v-text-field>\n    </div>\n\n    <!-- COMPOSANTS DE BLOCS DES DOUBLE-CUMULS HORAIRES -->\n    <div style=\"display: flex; gap: 10px; margin-top: 12px;\">\n        <!-- Bloc Cumul Principal -->\n        <div style=\"flex: 1; background: rgba(255, 87, 34, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Principal :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulPrincipalAffiche > 0 ? '#ff5722' : '#c62828' }\">\n                {{ formatTemps(cumulPrincipalAffiche) }}\n            </div>\n        </div>\n        <!-- Bloc Cumul Supplémentaire -->\n        <div style=\"flex: 1; background: rgba(76, 175, 80, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Supplémentaire :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulSupAffiche > 0 ? '#2e7d32' : '#c62828' }\">\n                {{ formatTemps(cumulSupAffiche) }}\n            </div>\n        </div>\n    </div>\n</div>\n\n<script>\n    export default {\n        data() {\n            const aujourdhui = new Date();\n            const ilYa30Jours = new Date();\n            ilYa30Jours.setDate(aujourdhui.getDate() - 30);\n\n            const formatLocalHTML = (d) => {\n                const yyyy = d.getFullYear();\n                const mm = String(d.getMonth() + 1).padStart(2, '0');\n                const dd = String(d.getDate()).padStart(2, '0');\n                return `${yyyy}-${mm}-${dd}`;\n            };\n\n            return {\n                inputDate: formatLocalHTML(aujourdhui), \n                minDateInput: formatLocalHTML(ilYa30Jours), \n                maxDateInput: formatLocalHTML(aujourdhui),   \n                dbHistorique: {},\n                timestampDemarrage: 0,\n                timestampSupDemarrage: 0,\n                secondesEnCours: 0,\n                secondesSupEnCours: 0,\n                intervalTimer: null,\n                alarmeActive: false,\n                isExtraRunning: false\n            }\n        },\n        computed: {\n            isRunning() {\n                return this.timestampDemarrage > 0;\n            },\n            selectedDateFR() {\n                if (!this.inputDate) return '';\n                const parts = this.inputDate.split('-');\n                return `${parts[2]}/${parts[1]}/${parts[0]}`;\n            },\n            // Calcul et rafraîchissement temps réel - Chauffage Principal\n            cumulPrincipalAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.principal || 0) : (typeof jourDonnees === 'number' ? jourDonnees : 0);\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesEnCours;\n                }\n                return baseSec;\n            },\n            // Calcul et rafraîchissement temps réel - Chauffage Supplémentaire\n            cumulSupAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.supplementaire || 0) : 0;\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isExtraRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesSupEnCours;\n                }\n                return baseSec;\n            }\n        },\n        watch: {\n            msg: {\n                handler(newMsg) {\n                    if (newMsg?.historiqueGlobal) {\n                        this.dbHistorique = newMsg.historiqueGlobal;\n                    }\n                    if (newMsg?.allumeA !== undefined) {\n                        this.timestampDemarrage = newMsg.allumeA;\n                        if (newMsg.allumeA === 0) {\n                            this.alarmeActive = false;\n                        }\n                    }\n                    if (newMsg?.allumeSupA !== undefined) {\n                        this.timestampSupDemarrage = newMsg.allumeSupA;\n                    }\n                    \n                    // Interception des payloads d'alarme de la boucle d'arrière-plan\n                    if (newMsg?.payload === \"ALARME_CHAUFFAGE_TIMEOUT\") {\n                        this.alarmeActive = true;\n                        this.isExtraRunning = true;\n                    }\n                    if (newMsg?.payload === \"Pas_d'alarme_Chauffage\") {\n                        this.alarmeActive = false;\n                        this.isExtraRunning = false;\n                    }\n                },\n                deep: true,\n                immediate: true\n            }\n        },\n        methods: {\n            formatTemps(totalSecondes) {\n                if (totalSecondes === 0 || !totalSecondes) {\n                    return \"Pas de données\";\n                }\n                let heures = Math.floor(totalSecondes / 3600);\n                let minutes = Math.floor((totalSecondes % 3600) / 60);\n                let secondes = totalSecondes % 60;\n                \n                let texte = \"\";\n                if (heures > 0) texte += heures + \" h \";\n                texte += minutes + \" min \" + secondes + \" sec\";\n                return texte;\n            }\n        },\n        mounted() {\n            this.intervalTimer = setInterval(() => {\n                if (this.timestampDemarrage > 0) {\n                    this.secondesEnCours = Math.round((Date.now() - this.timestampDemarrage) / 1000);\n                } else {\n                    this.secondesEnCours = 0;\n                }\n                if (this.timestampSupDemarrage > 0) {\n                    this.secondesSupEnCours = Math.round((Date.now() - this.timestampSupDemarrage) / 1000);\n                } else {\n                    this.secondesSupEnCours = 0;\n                }\n            }, 1000);\n        },\n        unmounted() {\n            clearInterval(this.intervalTimer);\n        }\n    }\n</script>\n\n<style scoped>\n    @keyframes heatPulse {\n        0% { transform: scale(1); opacity: 1; }\n        50% { transform: scale(1.05); opacity: 0.85; }\n        100% { transform: scale(1); opacity: 1; }\n    }\n    .heater-active {\n        animation: heatPulse 2s ease-in-out infinite;\n    }\n\n    @keyframes alarmeClignote {\n        0% { background-color: #ffffff; }     \n        50% { background-color: #ffeb3b; }    \n        100% { background-color: #ffffff; }   \n    }\n.alarme-flash-container {\ndisplay: flex;\nalign-items: center;\njustify-content: flex-start;\npadding: 12px 16px;\nmargin-bottom: 16px;\nborder: 2px solid #f44336;\nborder-radius: 8px;\nanimation: alarmeClignote 1.2s infinite ease-in-out;\nbox-shadow: 0 3px 8px rgba(244, 67, 54, 0.2);\n}\n.alarme-texte-message {\nfont-family: sans-serif;\nfont-size: 14px;\nfont-weight: 700;\ncolor: #000000;\ntext-align: left;\nline-height: 1.3;\n}\n</style>\n",
+        "noerr": 0,
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1040,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d8720bea8589d551",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 8",
+        "func": "let chaine_brute = String(msg.payload);\n\n// Extrait automatiquement n'importe quel nombre (entier ou décimal) présent dans le texte\nlet correspondance = chaine_brute.match(/[-+]?[0-9]*\\.?[0-9]+/);\n\nif (correspondance) {\n    let valeur = parseFloat(correspondance[0]);\n\n    // Vérifie si la valeur est valide et comprise entre 0 et 50\n    if (valeur >= 0 && valeur <= 50) {\n        \n        // Seuil d'allumage Ventilo à 10\n        if (valeur <= 29) {\n            msg.payload = \"chauffage_on\";  // \"on\" en minuscules pour correspondre à l'ESP32\n        } else {\n            msg.payload = \"chauffage_off\"; // \"off\" en minuscules\n        }\n\n        msg.topic = \"almikatro/yahi/cmd\";\n        return msg;\n    }\n}\n\n// En cas d'échec de lecture\nnode.warn(\"Impossible d'extraire une température valide de : \" + chaine_brute);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 380,
+        "wires": [
+            [
+                "fab108660f3a927d",
+                "1c93239cd31f44db"
+            ]
+        ]
+    },
+    {
+        "id": "7bc7dbd247a9aa9b",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "Alarm_Ventlo",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 1070,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "255a35e676b39bd6",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "Alarm_chauffage",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 1050,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "5d9bf1ada3b0706f",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "Alarm_dehumidificateur",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 1050,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "8d0bf48d0cdfb406",
+        "type": "mqtt out",
+        "z": "a7f113151a4d4e20",
+        "name": "Alarm_pompe",
+        "topic": "almikatro/yahi/cmd",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "aba54a98a7aec3f0",
+        "x": 1020,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "c5d3da6a99f534c5",
+        "type": "ui-gauge",
+        "z": "a7f113151a4d4e20",
+        "name": "citerne gauge",
+        "group": "f890b5b2cc5d2c2d",
+        "order": 26,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 1,
+        "height": 8,
+        "gtype": "gauge-tank",
+        "gstyle": "needle",
+        "title": "citerne",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "%",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#f10920",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "50",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "value"
+            },
+            {
+                "from": "80",
+                "color": "#47ea1a",
+                "text": "",
+                "textType": "value"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1080,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ebb948d951b063ea",
+        "type": "mqtt in",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "topic": "almikatro/yahi/percent_soil_citern",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "aba54a98a7aec3f0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 900,
+        "wires": [
+            [
+                "f62106fcc13c61ae"
+            ]
+        ]
+    },
+    {
+        "id": "50e0b4f17f0185e7",
+        "type": "change",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "valeurSoil",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 1040,
+        "wires": [
+            [
+                "2a12ad01c0015d5b",
+                "fa1390df89cdbe67"
+            ]
+        ]
+    },
+    {
+        "id": "7cabe9985a37e16e",
+        "type": "change",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "valeurCiterne",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 1440,
+        "wires": [
+            [
+                "c5d3da6a99f534c5",
+                "9cf9af9c0b72b419"
+            ]
+        ]
+    },
+    {
+        "id": "8c37a0d6b7602e85",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "pompe template",
+        "order": 20,
+        "width": 4,
+        "height": 10,
+        "head": "",
+        "format": "<!-- ============================================================================ -->\n<!-- REFERENCE : Vue.js 3 Template - Double Pompe & Doubles Cumuls Réactifs   -->\n<!-- DESIGN : Intégration Vuetify 3 / Dashboard 2.0 avec Clignotement d'Alerte    -->\n<!-- ============================================================================ -->\n\n\n\n\n\n\n<div style=\"text-align: center; padding: 15px; background-color: rgba(0,0,0,0.02); border-radius: 8px;\">\n    \n    <!-- BANDEAU D'ALARME VISUELLE FLASHEE (Conditionné sur la variable alarmeActive1) -->\n    <div v-if=\"alarmeActive1\" class=\"alarme-flash-container\">\n        <v-icon size=\"36\" color=\"#f44336\" class=\"mr-2\">\n            mdi-alert\n        </v-icon>\n        <span class=\"alarme-texte-message\">\n            Défaut de fonctionnement de la pompe d'irrigation\n        </span>\n        <v-btn icon=\"mdi-close\" variant=\"text\" size=\"small\" color=\"black\" class=\"ml-auto\" @click=\"alarmeActive1 = false\"></v-btn>\n    </div>\n    <!-- BANDEAU D'ALARME VISUELLE FLASHEE (Conditionné sur la variable alarmeActive2) -->\n    <div v-if=\"alarmeActive2\" class=\"alarme-flash-container\">\n        <v-icon size=\"36\" color=\"#f44336\" class=\"mr-2\">\n            mdi-alert\n        </v-icon>\n        <span class=\"alarme-texte-message\">\n            Défaut niveau d'eau insuffisant _ citerne vide\n        </span>\n        <v-btn icon=\"mdi-close\" variant=\"text\" size=\"small\" color=\"black\" class=\"ml-auto\" @click=\"alarmeActive2 = false\"></v-btn>\n    </div>\n    <!-- ZONE DE RENDU EN LIGNE DES DEUX APPAREILS (CÔTE À CÔTE) -->\n    <div style=\"display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 15px;\">\n        \n        <!-- COMPOSANT : Pompe PRINCIPAL -->\n        <div style=\"flex: 1; text-align: center;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'Pompe-active': isRunning }\"\n                :style=\"{ color: isRunning ? '#00bcd4' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-sprinkler-variant\n            </v-icon>\n                <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Pompe Principal : <br>\n                <span :style=\"{ color: isRunning ? '#00bcd4' : '#f44336' }\">\n                    {{ isRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n        <!-- COMPOSANT : Pompe SUPPLÉMENTAIRE -->\n        <div style=\"flex: 1; text-align: center; border-left: 1px dashed #ccc; padding-left: 20px;\">\n            <v-icon \n                   size=\"64\" \n                :class=\"{ 'Pompe-active': isExtraRunning }\"\n                :style=\"{ color: isExtraRunning ? '#4caf50' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-sprinkler-variant\n            </v-icon>\n       <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Pompe Supplémentaire : <br>\n                <span :style=\"{ color: isExtraRunning ? '#4caf50' : '#f44336' }\">\n                    {{ isExtraRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n    </div>\n\n    <!-- CALENDRIER DE SELECTION DE L'HISTORIQUE -->\n    <div style=\"margin-top: 15px; padding-top: 12px; border-top: 1px dashed #ccc;\">\n        <v-text-field\n            v-model=\"inputDate\"\n            type=\"date\"\n            label=\"Choisir une date\"\n            variant=\"outlined\"\n            density=\"compact\"\n            prepend-inner-icon=\"mdi-calendar\"\n            :min=\"minDateInput\"\n            :max=\"maxDateInput\"\n            hide-details\n        ></v-text-field>\n    </div>\n\n    <!-- COMPOSANTS DE BLOCS DES DOUBLE-CUMULS HORAIRES -->\n    <div style=\"display: flex; gap: 10px; margin-top: 12px;\">\n        <!-- Cumul Principal -->\n        <div style=\"flex: 1; background: rgba(33, 150, 243, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Principal :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulPrincipalAffiche > 0 ? '#1976d2' : '#c62828' }\">\n                {{ formatTemps(cumulPrincipalAffiche) }}\n            </div>\n        </div>\n        <!-- Cumul Supplémentaire -->\n        <div style=\"flex: 1; background: rgba(76, 175, 80, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Supplémentaire :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulSupAffiche > 0 ? '#2e7d32' : '#c62828' }\">\n                {{ formatTemps(cumulSupAffiche) }}\n            </div>\n        </div>\n    </div>\n</div>\n\n<script>\n    export default {\n        data() {\n            const aujourdhui = new Date();\n            const ilYa30Jours = new Date();\n            ilYa30Jours.setDate(aujourdhui.getDate() - 30);\n\n            const formatLocalHTML = (d) => {\n                const yyyy = d.getFullYear();\n                const mm = String(d.getMonth() + 1).padStart(2, '0');\n                const dd = String(d.getDate()).padStart(2, '0');\n                return `${yyyy}-${mm}-${dd}`;\n            };\n\n            return {\n                inputDate: formatLocalHTML(aujourdhui), \n                minDateInput: formatLocalHTML(ilYa30Jours), \n                maxDateInput: formatLocalHTML(aujourdhui),   \n                dbHistorique: {},\n                timestampDemarrage: 0,\n                timestampSupDemarrage: 0,\n                secondesEnCours: 0,\n                secondesSupEnCours: 0,\n                intervalTimer: null,\n                alarmeActive1: false,\n                alarmeActive2: false,\n                isExtraRunning: false\n            }\n        },\n        computed: {\n            isRunning() {\n                return this.timestampDemarrage > 0;\n            },\n            selectedDateFR() {\n                if (!this.inputDate) return '';\n                const parts = this.inputDate.split('-');\n                return `${parts[2]}/${parts[1]}/${parts[0]}`;\n            },\n            // Calcul et rafraîchissement temps réel - Pompe Principal\n            cumulPrincipalAffiche() {\n                  const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.principal || 0) : (typeof jourDonnees === 'number' ? jourDonnees : 0);\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesEnCours;\n                }\n                return baseSec;\n            },\n\n            // Calcul du cumul temps réel - Pompe Supplémentaire\n            cumulSupAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.supplementaire || 0) : 0;\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isExtraRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesSupEnCours;\n                }\n                return baseSec;\n            }\n        },\n        watch: {\n            msg: {\n                handler(newMsg) {\n                    if (newMsg?.historiqueGlobal) {\n                        this.dbHistorique = newMsg.historiqueGlobal;\n                    }\n                    if (newMsg?.allumeA !== undefined) {\n                        this.timestampDemarrage = newMsg.allumeA;\n                        if (newMsg.allumeA === 0) {\n                            this.alarmeActive1 = false;\n                            this.alarmeActive2 = false;\n                        }\n                    }\n                    if (newMsg?.allumeSupA !== undefined) {\n                        this.timestampSupDemarrage = newMsg.allumeSupA;\n                    }\n                    \n                    // Interception des payloads d'alarme de la boucle d'arrière-plan\n                    if (newMsg?.payload === \"ALARME_POMPE_TIMEOUT\") {\n                        this.alarmeActive1 = true;\n                        this.alarmeActive2 = false;\n                        this.isExtraRunning = true;\n                    }\n                    if (newMsg?.payload === \"Pas_d'alarme_Pompe\") {\n                        this.alarmeActive1 = false;\n                        this.alarmeActive2 = false;\n                        this.isExtraRunning = false;\n                    }\n                    if (newMsg?.payload === \"Pompe_off_citerne_vide\") {\n                        this.alarmeActive1 = true;\n                        this.alarmeActive2 = true;\n                        this.isExtraRunning = false;\n                    }\n                },\n                deep: true,\n                immediate: true\n            }\n        },\n        methods: {\n            formatTemps(totalSecondes) {\n                if (totalSecondes === 0 || !totalSecondes) {\n                    return \"Pas de données\";\n                }\n                let heures = Math.floor(totalSecondes / 3600);\n                let minutes = Math.floor((totalSecondes % 3600) / 60);\n                let secondes = totalSecondes % 60;\n                \n                let texte = \"\";\n                if (heures > 0) texte += heures + \" h \";\n                texte += minutes + \" min \" + secondes + \" sec\";\n                return texte;\n            }\n        },\n        mounted() {\n            this.intervalTimer = setInterval(() => {\n                if (this.timestampDemarrage > 0) {\n                    this.secondesEnCours = Math.round((Date.now() - this.timestampDemarrage) / 1000);\n                } else {\n                    this.secondesEnCours = 0;\n                }\n                if (this.timestampSupDemarrage > 0) {\n                    this.secondesSupEnCours = Math.round((Date.now() - this.timestampSupDemarrage) / 1000);\n                } else {\n                    this.secondesSupEnCours = 0;\n                }\n            }, 1000);\n        },\n        unmounted() {\n            clearInterval(this.intervalTimer);\n        }\n    }\n</script>\n\n<style scoped>\n    @keyframes heatPulse {\n        0% { transform: scale(1); opacity: 1; }\n        50% { transform: scale(1.05); opacity: 0.85; }\n        100% { transform: scale(1); opacity: 1; }\n    }\n    .heater-active {\n        animation: heatPulse 2s ease-in-out infinite;\n    }\n\n    @keyframes alarmeClignote {\n        0% { background-color: #ffffff; }     \n        50% { background-color: #ffeb3b; }    \n        100% { background-color: #ffffff; }   \n    }\n.alarme-flash-container {\ndisplay: flex;\nalign-items: center;\njustify-content: flex-start;\npadding: 12px 16px;\nmargin-bottom: 16px;\nborder: 2px solid #f44336;\nborder-radius: 8px;\nanimation: alarmeClignote 1.2s infinite ease-in-out;\nbox-shadow: 0 3px 8px rgba(244, 67, 54, 0.2);\n}\n.alarme-texte-message {\nfont-family: sans-serif;\nfont-size: 14px;\nfont-weight: 700;\ncolor: #000000;\ntext-align: left;\nline-height: 1.3;\n}\n</style>\n",
+        "noerr": 0,
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1020,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "582505864167b6c6",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "50860a07992da7ed",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Dehumidificateur template",
+        "order": 13,
+        "width": 4,
+        "height": 9,
+        "head": "",
+        "format": "<!-- ============================================================================ -->\n<!-- REFERENCE : Vue.js 3 Template - Double Dehumidificateur & Doubles Cumuls Réactifs   -->\n<!-- DESIGN : Intégration Vuetify 3 / Dashboard 2.0 avec Clignotement d'Alerte    -->\n<!-- ============================================================================ -->\n\n<div style=\"text-align: center; padding: 15px; background-color: rgba(0,0,0,0.02); border-radius: 8px;\">\n    \n    <!-- BANDEAU D'ALARME VISUELLE FLASHEE (Conditionné sur la variable alarmeActive) -->\n    <div v-if=\"alarmeActive\" class=\"alarme-flash-container\">\n        <v-icon size=\"36\" color=\"#f44336\" class=\"mr-2\">\n            mdi-alert\n        </v-icon>\n        <span class=\"alarme-texte-message\">\n            Défaut de fonctionnement Dehumidificateur\n        </span>\n        <v-btn icon=\"mdi-close\" variant=\"text\" size=\"small\" color=\"black\" class=\"ml-auto\" @click=\"alarmeActive = false\"></v-btn>\n    </div>\n\n    <!-- ZONE DE RENDU EN LIGNE DES DEUX APPAREILS (CÔTE À CÔTE) -->\n    <div style=\"display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 15px;\">\n        \n        <!-- COMPOSANT : Dehumidificateur PRINCIPAL -->\n        <div style=\"flex: 1; text-align: center;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'dehumidifier-active': isRunning }\"\n                :style=\"{ color: isRunning ? '#ff5722' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-air-humidifier\n            </v-icon>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Dehumidificateur Principal : <br>\n                <span :style=\"{ color: isRunning ? '#ff5722' : '#f44336' }\">\n                    {{ isRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n        <!-- COMPOSANT : Dehumidificateur SUPPLÉMENTAIRE -->\n        <div style=\"flex: 1; text-align: center; border-left: 1px dashed #ccc; padding-left: 20px;\">\n            <v-icon \n                size=\"64\" \n                :class=\"{ 'dehumidifier-active': isExtraRunning }\"\n                :style=\"{ color: isExtraRunning ? '#4caf50' : '#9e9e9e', transition: 'color 0.3s' }\">\n                mdi-air-humidifier\n            </v-icon>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 8px; font-family: sans-serif;\">\n                Dehumidificateur Supplémentaire : <br>\n                <span :style=\"{ color: isExtraRunning ? '#4caf50' : '#f44336' }\">\n                    {{ isExtraRunning ? 'EN MARCHE' : 'À L\\'ARRÊT' }}\n                </span>\n            </div>\n        </div>\n\n    </div>\n\n    <!-- CALENDRIER DE SELECTION DE L'HISTORIQUE -->\n    <div style=\"margin-top: 15px; padding-top: 12px; border-top: 1px dashed #ccc;\">\n        <v-text-field\n            v-model=\"inputDate\"\n            type=\"date\"\n            label=\"Choisir une date\"\n            variant=\"outlined\"\n            density=\"compact\"\n            prepend-inner-icon=\"mdi-calendar\"\n            :min=\"minDateInput\"\n            :max=\"maxDateInput\"\n            hide-details\n        ></v-text-field>\n    </div>\n\n    <!-- COMPOSANTS DE BLOCS DES DOUBLE-CUMULS HORAIRES -->\n    <div style=\"display: flex; gap: 10px; margin-top: 12px;\">\n        <!-- Bloc Cumul Principal -->\n        <div style=\"flex: 1; background: rgba(255, 87, 34, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Principal :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulPrincipalAffiche > 0 ? '#ff5722' : '#c62828' }\">\n                {{ formatTemps(cumulPrincipalAffiche) }}\n            </div>\n        </div>\n        <!-- Bloc Cumul Supplémentaire -->\n        <div style=\"flex: 1; background: rgba(76, 175, 80, 0.08); padding: 10px; border-radius: 6px; text-align: center;\">\n            <div style=\"font-size: 11px; color: #555; font-weight: 600;\">Cumul Supplémentaire :</div>\n            <div style=\"font-size: 14px; font-weight: bold; margin-top: 2px;\" :style=\"{ color: cumulSupAffiche > 0 ? '#2e7d32' : '#c62828' }\">\n                {{ formatTemps(cumulSupAffiche) }}\n            </div>\n        </div>\n    </div>\n</div>\n\n<script>\n    export default {\n        data() {\n            const aujourdhui = new Date();\n            const ilYa30Jours = new Date();\n            ilYa30Jours.setDate(aujourdhui.getDate() - 30);\n\n            const formatLocalHTML = (d) => {\n                const yyyy = d.getFullYear();\n                const mm = String(d.getMonth() + 1).padStart(2, '0');\n                const dd = String(d.getDate()).padStart(2, '0');\n                return `${yyyy}-${mm}-${dd}`;\n            };\n\n            return {\n                inputDate: formatLocalHTML(aujourdhui), \n                minDateInput: formatLocalHTML(ilYa30Jours), \n                maxDateInput: formatLocalHTML(aujourdhui),   \n                dbHistorique: {},\n                timestampDemarrage: 0,\n                timestampSupDemarrage: 0,\n                secondesEnCours: 0,\n                secondesSupEnCours: 0,\n                intervalTimer: null,\n                alarmeActive: false,\n                isExtraRunning: false\n            }\n        },\n        computed: {\n            isRunning() {\n                return this.timestampDemarrage > 0;\n            },\n            selectedDateFR() {\n                if (!this.inputDate) return '';\n                const parts = this.inputDate.split('-');\n                return `${parts[2]}/${parts[1]}/${parts[0]}`;\n            },\n            // Calcul et rafraîchissement temps réel - Dehumidificateur Principal\n            cumulPrincipalAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.principal || 0) : (typeof jourDonnees === 'number' ? jourDonnees : 0);\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesEnCours;\n                }\n                return baseSec;\n            },\n            // Calcul et rafraîchissement temps réel - Dehumidificateur Supplémentaire\n            cumulSupAffiche() {\n                const jourDonnees = this.dbHistorique[this.selectedDateFR];\n                let baseSec = (jourDonnees && typeof jourDonnees === 'object') ? (jourDonnees.supplementaire || 0) : 0;\n                const aujourdhuiFR = new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'numeric'});\n                \n                if (this.isExtraRunning && this.selectedDateFR === aujourdhuiFR) {\n                    return baseSec + this.secondesSupEnCours;\n                }\n                return baseSec;\n            }\n        },\n        watch: {\n            msg: {\n                handler(newMsg) {\n                    if (newMsg?.historiqueGlobal) {\n                        this.dbHistorique = newMsg.historiqueGlobal;\n                    }\n                    if (newMsg?.allumeA !== undefined) {\n                        this.timestampDemarrage = newMsg.allumeA;\n                        if (newMsg.allumeA === 0) {\n                            this.alarmeActive = false;\n                        }\n                    }\n                    if (newMsg?.allumeSupA !== undefined) {\n                        this.timestampSupDemarrage = newMsg.allumeSupA;\n                    }\n                    \n                    // Interception des payloads d'alarme de la boucle d'arrière-plan\n                    if (newMsg?.payload === \"ALARME_DEHUMIDIFIER_TIMEOUT\") {\n                        this.alarmeActive = true;\n                        this.isExtraRunning = true;\n                    }\n                    if (newMsg?.payload === \"Pas_d'alarme_Dehumidificateur\") {\n                        this.alarmeActive = false;\n                        this.isExtraRunning = false;\n                    }\n                },\n                deep: true,\n                immediate: true\n            }\n        },\n        methods: {\n            formatTemps(totalSecondes) {\n                if (totalSecondes === 0 || !totalSecondes) {\n                    return \"Pas de données\";\n                }\n                let heures = Math.floor(totalSecondes / 3600);\n                let minutes = Math.floor((totalSecondes % 3600) / 60);\n                let secondes = totalSecondes % 60;\n                \n                let texte = \"\";\n                if (heures > 0) texte += heures + \" h \";\n                texte += minutes + \" min \" + secondes + \" sec\";\n                return texte;\n            }\n        },\n        mounted() {\n            this.intervalTimer = setInterval(() => {\n                if (this.timestampDemarrage > 0) {\n                    this.secondesEnCours = Math.round((Date.now() - this.timestampDemarrage) / 1000);\n                } else {\n                    this.secondesEnCours = 0;\n                }\n                if (this.timestampSupDemarrage > 0) {\n                    this.secondesSupEnCours = Math.round((Date.now() - this.timestampSupDemarrage) / 1000);\n                } else {\n                    this.secondesSupEnCours = 0;\n                }\n            }, 1000);\n        },\n        unmounted() {\n            clearInterval(this.intervalTimer);\n        }\n    }\n</script>\n\n<style scoped>\n    @keyframes heatPulse {\n        0% { transform: scale(1); opacity: 1; }\n        50% { transform: scale(1.05); opacity: 0.85; }\n        100% { transform: scale(1); opacity: 1; }\n    }\n    .dehumidifier-active {\n        animation: heatPulse 2s ease-in-out infinite;\n    }\n\n    @keyframes alarmeClignote {\n        0% { background-color: #ffffff; }     \n        50% { background-color: #ffeb3b; }    \n        100% { background-color: #ffffff; }   \n    }\n.alarme-flash-container {\ndisplay: flex;\nalign-items: center;\njustify-content: flex-start;\npadding: 12px 16px;\nmargin-bottom: 16px;\nborder: 2px solid #f44336;\nborder-radius: 8px;\nanimation: alarmeClignote 1.2s infinite ease-in-out;\nbox-shadow: 0 3px 8px rgba(244, 67, 54, 0.2);\n}\n.alarme-texte-message {\nfont-family: sans-serif;\nfont-size: 14px;\nfont-weight: 700;\ncolor: #000000;\ntext-align: left;\nline-height: 1.3;\n}\n</style>\n",
+        "noerr": 0,
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1060,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9e3fbcc09789189",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1860,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "8a9bdf570a14b4a7",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Créer CSV temps réel",
+        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Ventilateur_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Ventilateur\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Ventilateur\") || 0;\n\n// Calcul du temps additionnel en direct si le Ventilateur marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Ventilateur Principal (min);Ventilateur Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1660,
+        "y": 880,
+        "wires": [
+            [
+                "ec60b235bdf1394c"
+            ]
+        ]
+    },
+    {
+        "id": "ec60b235bdf1394c",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Cumul journalier des ventilateurs.csv",
+        "order": 14,
+        "width": 4,
+        "height": 9,
+        "format": "<script>\nexport default {\n    mounted() {\n        // Écoute uniquement le signal envoyé par le nœud fonction\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                // Génération du fichier CSV avec encodage Excel\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                \n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Cumul journalier des Ventilateurs.csv\");\n                link.style.visibility = 'hidden';\n                \n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                \n                // Efface instantanément la mémoire pour bloquer tout automatisme au démarrage\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1950,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64c7843fb609b242",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Bouton Télécharger",
+        "label": "Telecharger le Cumul journalier des chauffages (csv)",
+        "order": 8,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUELChauffage",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1380,
+        "y": 960,
+        "wires": [
+            [
+                "310b91ef57fc5f4d"
+            ]
+        ]
+    },
+    {
+        "id": "310b91ef57fc5f4d",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Créer CSV temps réel",
+        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Chauffage_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Chauffage\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Chauffage\") || 0;\n\n// Calcul du temps additionnel en direct si le Chauffage marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Chauffage Principal (min);Chauffage Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1640,
+        "y": 960,
+        "wires": [
+            [
+                "af78e10d51d6405b"
+            ]
+        ]
+    },
+    {
+        "id": "af78e10d51d6405b",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Cumul journalier des Chauffages.csv",
+        "order": 17,
+        "width": 12,
+        "height": 1,
+        "format": "<script>\nexport default {\n    mounted() {\n        // Écoute uniquement le signal envoyé par le nœud fonction\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                // Génération du fichier CSV avec encodage Excel\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                \n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Cumul journalier des Chauffages.csv\");\n                link.style.visibility = 'hidden';\n                \n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                \n                // Efface instantanément la mémoire pour bloquer tout automatisme au démarrage\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1950,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "807b78552614c415",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Script Téléchargement",
+        "order": 2,
+        "width": 12,
+        "height": 0,
+        "format": "<script>\nexport default {\n    mounted() {\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Base_de_donnees_temperature.csv\");\n                link.style.visibility = 'hidden';\n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 2060,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6860249dc4d1972c",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 1m",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1400,
+        "y": 1040,
+        "wires": [
+            [
+                "0ac8fac52108c017"
+            ]
+        ]
+    },
+    {
+        "id": "3759b9e0e0b50078",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Télécharger CSV",
+        "label": "Télécharger la base de données de la temperature (CSV)",
+        "order": 4,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUEL_TEMP",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1430,
+        "y": 1120,
+        "wires": [
+            [
+                "bb2a7e46b9f81995"
+            ]
+        ]
+    },
+    {
+        "id": "4e2d87226dd1f92d",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 10",
+        "func": "// 1. Récupération du tableau de points brut d'InfluxDB\nlet points = msg.payload;\nlet groupes = {};\n\n// Fonction d'expert pour convertir la date ISO d'InfluxDB en format standard Excel\nfunction formaterDate(isoString) {\n    let d = new Date(isoString);\n    if (isNaN(d.getTime())) return isoString; // Sécurité si la date est invalide\n    const jj = String(d.getDate()).padStart(2, '0');\n    const mm = String(d.getMonth() + 1).padStart(2, '0');\n    const aa = d.getFullYear();\n    const hh = String(d.getHours()).padStart(2, '0');\n    const min = String(d.getMinutes()).padStart(2, '0');\n    return jj + \"/\" + mm + \"/\" + aa + \" \" + hh + \":\" + min;\n}\n\n// 2. Regroupement des températures par abscisse (time) identique\nif (Array.isArray(points)) {\n    points.forEach(point => {\n        if (point && point._time && point._value !== undefined && point._value !== null) {\n            // Conversion immédiate de l'abscisse en date propre pour le dictionnaire\n            let abscisse = formaterDate(point._time);\n            let valeurNumerique = parseFloat(point._value);\n            \n            if (!isNaN(valeurNumerique)) {\n                if (!groupes[abscisse]) {\n                    groupes[abscisse] = {\n                        somme: 0,\n                        compteur: 0\n                    };\n                }\n                groupes[abscisse].somme += valeurNumerique;\n                groupes[abscisse].compteur++;\n            }\n        }\n    });\n}\n\n// 3. Calcul de la moyenne pour chaque abscisse unique et formatage CSV\nlet lignes = [\"Horodatage;Temperature_Moyenne\"];\nlet toutesLesAbscisses = Object.keys(groupes);\n\ntoutesLesAbscisses.forEach(abscisse => {\n    let donneesAbscisse = groupes[abscisse];\n    let moyenne = donneesAbscisse.somme / donneesAbscisse.compteur;\n    let moyenneArrondie = moyenne.toFixed(2);\n    \n    lignes.push(abscisse + \";\" + moyenneArrondie);\n});\n\nif (lignes.length === 1) {\n    lignes.push(\"Aucune donnee calculee;0\");\n}\n\n// MODIFICATION EXPERT : On stocke le texte CSV dans la mémoire globale\nglobal.set(\"csv_temperature_stocke\", lignes.join(\"\\r\\n\"));\n\n// On renvoie 'null' pour bloquer le flux et empêcher tout téléchargement automatique\nreturn null; ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2030,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb2a7e46b9f81995",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 11",
+        "func": "// SÉCURITÉ : On exécute le code UNIQUEMENT si le message provient du clic sur le bouton\nif (msg.topic !== \"CLIC_MANUEL_TEMP\") {\n    return null; // Bloque absolument tout message parasite ou automatique\n}\n\n// Récupération instantanée du fichier CSV mis à jour par la ligne du haut\nlet csvPret = global.get(\"csv_temperature_stocke\") || \"Horodatage;Temperature_Moyenne\\r\\nCollecte en cours...;0\";\n\nmsg.payload = csvPret;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 1120,
+        "wires": [
+            [
+                "807b78552614c415"
+            ]
+        ]
+    },
+    {
+        "id": "0ac8fac52108c017",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "Requête InfluxDB",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"temp\")\n",
+        "rawOutput": false,
+        "precision": "m",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1710,
+        "y": 1040,
+        "wires": [
+            [
+                "4e2d87226dd1f92d"
+            ]
+        ]
+    },
+    {
+        "id": "244a376a4063d3ca",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "add field",
+        "func": "// Topic example: almikatro/yahi/humidity\n\nconst parts = msg.topic.split(\"/\"); // Split by ‘/’\n// ['almikatro','yahi','humidity']\n\nconst field = parts[parts.length - 1];   // \"temp\"\n\n\nmsg.payload = {\n    [field]: msg.payload //   humidity: XX.X \n};\n\n\nreturn msg;  // {humidity: XX.X}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 680,
+        "wires": [
+            [
+                "93f0778114024145"
+            ]
+        ]
+    },
+    {
+        "id": "93f0778114024145",
+        "type": "influxdb out",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb-almikatro",
+        "measurement": "msg",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "IOT",
+        "bucket": "almikatro",
+        "x": 710,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "fa1390df89cdbe67",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "add field",
+        "func": "\nmsg.payload = {\n    valeurSoil: msg.payload //   humidity: XX.X \n};\n\n\nreturn msg;  // {valeurSoil: XX.X}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 1120,
+        "wires": [
+            [
+                "48a961e646676482",
+                "cf6da1f9446fbc6c"
+            ]
+        ]
+    },
+    {
+        "id": "48a961e646676482",
+        "type": "influxdb out",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb-almikatro",
+        "measurement": "msg",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "IOT",
+        "bucket": "almikatro",
+        "x": 1030,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "cf6da1f9446fbc6c",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "c15b2f907bcd90ad",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Bouton Télécharger",
+        "label": "Telecharger le Cumul journalier des dehumidificateurs (csv)",
+        "order": 15,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUELdehumidificateur",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1380,
+        "y": 1400,
+        "wires": [
+            [
+                "b6169c62dafaf8c4"
+            ]
+        ]
+    },
+    {
+        "id": "b6169c62dafaf8c4",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Créer CSV temps réel",
+        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Dehumidificateur_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Dehumidificateur\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Dehumidificateur\") || 0;\n\n// Calcul du temps additionnel en direct si le Dehumidificateur marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Dehumidificateur Principal (min);Dehumidificateur Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1640,
+        "y": 1400,
+        "wires": [
+            [
+                "d9acc842dad4dc99"
+            ]
+        ]
+    },
+    {
+        "id": "d9acc842dad4dc99",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Cumul journalier des Dehumidificateurs.csv",
+        "order": 28,
+        "width": 9,
+        "height": 1,
+        "format": "<script>\nexport default {\n    mounted() {\n        // Écoute uniquement le signal envoyé par le nœud fonction\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                // Génération du fichier CSV avec encodage Excel\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                \n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Cumul journalier des Dehumidificateurs.csv\");\n                link.style.visibility = 'hidden';\n                \n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                \n                // Efface instantanément la mémoire pour bloquer tout automatisme au démarrage\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1970,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c4d20b864c4d4dd",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Script Téléchargement",
+        "order": 10,
+        "width": 12,
+        "height": 0,
+        "format": "<script>\nexport default {\n    mounted() {\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Base_de_donnees_humiditè.csv\");\n                link.style.visibility = 'hidden';\n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 2060,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c082d6430d1774d9",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 1m",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1400,
+        "y": 1480,
+        "wires": [
+            [
+                "fd9fbc9924437568"
+            ]
+        ]
+    },
+    {
+        "id": "9006befa51d7bfae",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Télécharger CSV",
+        "label": "Télécharger la base de données de l'humiditè (CSV)",
+        "order": 12,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUEL_humidity",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1430,
+        "y": 1560,
+        "wires": [
+            [
+                "6c7ccfa97985453e"
+            ]
+        ]
+    },
+    {
+        "id": "485f93ae0ea4f6b4",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 9",
+        "func": "// 1. Récupération du tableau de points brut d'InfluxDB\nlet points = msg.payload;\nlet groupes = {};\n\n// Fonction d'expert pour convertir la date ISO d'InfluxDB en format standard Excel\nfunction formaterDate(isoString) {\n    let d = new Date(isoString);\n    if (isNaN(d.getTime())) return isoString; // Sécurité si la date est invalide\n    const jj = String(d.getDate()).padStart(2, '0');\n    const mm = String(d.getMonth() + 1).padStart(2, '0');\n    const aa = d.getFullYear();\n    const hh = String(d.getHours()).padStart(2, '0');\n    const min = String(d.getMinutes()).padStart(2, '0');\n    return jj + \"/\" + mm + \"/\" + aa + \" \" + hh + \":\" + min;\n}\n\n// 2. Regroupement des valeurs d'humiditè par abscisse (time) identique\nif (Array.isArray(points)) {\n    points.forEach(point => {\n        if (point && point._time && point._value !== undefined && point._value !== null) {\n            // Conversion immédiate de l'abscisse en date propre pour le dictionnaire\n            let abscisse = formaterDate(point._time);\n            let valeurNumerique = parseFloat(point._value);\n            \n            if (!isNaN(valeurNumerique)) {\n                if (!groupes[abscisse]) {\n                    groupes[abscisse] = {\n                        somme: 0,\n                        compteur: 0\n                    };\n                }\n                groupes[abscisse].somme += valeurNumerique;\n                groupes[abscisse].compteur++;\n            }\n        }\n    });\n}\n\n// 3. Calcul de la moyenne pour chaque abscisse unique et formatage CSV\nlet lignes = [\"Horodatage;humiditè_Moyenne\"];\nlet toutesLesAbscisses = Object.keys(groupes);\n\ntoutesLesAbscisses.forEach(abscisse => {\n    let donneesAbscisse = groupes[abscisse];\n    let moyenne = donneesAbscisse.somme / donneesAbscisse.compteur;\n    let moyenneArrondie = moyenne.toFixed(2);\n    \n    lignes.push(abscisse + \";\" + moyenneArrondie);\n});\n\nif (lignes.length === 1) {\n    lignes.push(\"Aucune donnee calculee;0\");\n}\n\n// MODIFICATION EXPERT : On stocke le texte CSV dans la mémoire globale\nglobal.set(\"csv_humiditè_stocke\", lignes.join(\"\\r\\n\"));\n\n// On renvoie 'null' pour bloquer le flux et empêcher tout téléchargement automatique\nreturn null; ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2030,
+        "y": 1480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6c7ccfa97985453e",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 10",
+        "func": "// SÉCURITÉ : On exécute le code UNIQUEMENT si le message provient du clic sur le bouton\nif (msg.topic !== \"CLIC_MANUEL_humidity\") {\n    return null; // Bloque absolument tout message parasite ou automatique\n}\n\n// Récupération instantanée du fichier CSV mis à jour par la ligne du haut\nlet csvPret = global.get(\"csv_humiditè_stocke\") || \"Horodatage;humiditè_Moyenne\\r\\nCollecte en cours...;0\";\n\nmsg.payload = csvPret;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 1560,
+        "wires": [
+            [
+                "5c4d20b864c4d4dd"
+            ]
+        ]
+    },
+    {
+        "id": "fd9fbc9924437568",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "Requête InfluxDB",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"humidity\")\n",
+        "rawOutput": false,
+        "precision": "m",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1710,
+        "y": 1480,
+        "wires": [
+            [
+                "485f93ae0ea4f6b4"
+            ]
+        ]
+    },
+    {
+        "id": "9d57c9182ad17c2b",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Bouton Télécharger",
+        "label": "Telecharger le Cumul journalier des Ventilateurs (csv)",
+        "order": 7,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUELChauffage",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1380,
+        "y": 880,
+        "wires": [
+            [
+                "8a9bdf570a14b4a7"
+            ]
+        ]
+    },
+    {
+        "id": "cd3b1a9762bbf58a",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Bouton Télécharger",
+        "label": "Telecharger le Cumul journalier des Pompes (csv)",
+        "order": 22,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUELSoil",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1420,
+        "y": 1800,
+        "wires": [
+            [
+                "f341ba379b5f7632"
+            ]
+        ]
+    },
+    {
+        "id": "f341ba379b5f7632",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Créer CSV temps réel",
+        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Pompe_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Pompe\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Pomper\") || 0;\n\n// Calcul du temps additionnel en direct si le valeurSoil marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Pompe Principal (min);Pompe Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 1800,
+        "wires": [
+            [
+                "83e263dc2aecf806"
+            ]
+        ]
+    },
+    {
+        "id": "83e263dc2aecf806",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Cumul journalier des Soil.csv",
+        "order": 21,
+        "width": 4,
+        "height": 10,
+        "format": "<script>\nexport default {\n    mounted() {\n        // Écoute uniquement le signal envoyé par le nœud fonction\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                // Génération du fichier CSV avec encodage Excel\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                \n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Cumul journalier des pompes.csv\");\n                link.style.visibility = 'hidden';\n                \n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                \n                // Efface instantanément la mémoire pour bloquer tout automatisme au démarrage\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1960,
+        "y": 1800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5f527eecb70f5457",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Script Téléchargement",
+        "order": 25,
+        "width": 12,
+        "height": 0,
+        "format": "<script>\nexport default {\n    mounted() {\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Base_de_donnees_Soil.csv\");\n                link.style.visibility = 'hidden';\n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 2100,
+        "y": 1960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e7098d4cab720d8",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 1m",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1440,
+        "y": 1880,
+        "wires": [
+            [
+                "176731dc52237525"
+            ]
+        ]
+    },
+    {
+        "id": "9ca2955a0a5cac77",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Télécharger CSV",
+        "label": "Télécharger la base de données de Soil (CSV)",
+        "order": 19,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUEL_Soil",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1470,
+        "y": 1960,
+        "wires": [
+            [
+                "6d0e65ab47c9e52f"
+            ]
+        ]
+    },
+    {
+        "id": "235df918a2dcb535",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 12",
+        "func": "// 1. Récupération du tableau de points brut d'InfluxDB\nlet points = msg.payload;\nlet groupes = {};\n\n// Fonction d'expert pour convertir la date ISO d'InfluxDB en format standard Excel\nfunction formaterDate(isoString) {\n    let d = new Date(isoString);\n    if (isNaN(d.getTime())) return isoString; // Sécurité si la date est invalide\n    const jj = String(d.getDate()).padStart(2, '0');\n    const mm = String(d.getMonth() + 1).padStart(2, '0');\n    const aa = d.getFullYear();\n    const hh = String(d.getHours()).padStart(2, '0');\n    const min = String(d.getMinutes()).padStart(2, '0');\n    return jj + \"/\" + mm + \"/\" + aa + \" \" + hh + \":\" + min;\n}\n\n// 2. Regroupement des valeurs de Soil par abscisse (time) identique\nif (Array.isArray(points)) {\n    points.forEach(point => {\n        if (point && point._time && point._value !== undefined && point._value !== null) {\n            // Conversion immédiate de l'abscisse en date propre pour le dictionnaire\n            let abscisse = formaterDate(point._time);\n            let valeurNumerique = parseFloat(point._value);\n            \n            if (!isNaN(valeurNumerique)) {\n                if (!groupes[abscisse]) {\n                    groupes[abscisse] = {\n                        somme: 0,\n                        compteur: 0\n                    };\n                }\n                groupes[abscisse].somme += valeurNumerique;\n                groupes[abscisse].compteur++;\n            }\n        }\n    });\n}\n\n// 3. Calcul de la moyenne pour chaque abscisse unique et formatage CSV\nlet lignes = [\"Horodatage;Soil_Moyenne\"];\nlet toutesLesAbscisses = Object.keys(groupes);\n\ntoutesLesAbscisses.forEach(abscisse => {\n    let donneesAbscisse = groupes[abscisse];\n    let moyenne = donneesAbscisse.somme / donneesAbscisse.compteur;\n    let moyenneArrondie = moyenne.toFixed(2);\n    \n    lignes.push(abscisse + \";\" + moyenneArrondie);\n});\n\nif (lignes.length === 1) {\n    lignes.push(\"Aucune donnee calculee;0\");\n}\n\n// MODIFICATION EXPERT : On stocke le texte CSV dans la mémoire globale\nglobal.set(\"csv_Soil_stocke\", lignes.join(\"\\r\\n\"));\n\n// On renvoie 'null' pour bloquer le flux et empêcher tout téléchargement automatique\nreturn null; ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2050,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6d0e65ab47c9e52f",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 13",
+        "func": "// SÉCURITÉ : On exécute le code UNIQUEMENT si le message provient du clic sur le bouton\nif (msg.topic !== \"CLIC_MANUEL_Soil\") {\n    return null; // Bloque absolument tout message parasite ou automatique\n}\n\n// Récupération instantanée du fichier CSV mis à jour par la ligne du haut\nlet csvPret = global.get(\"csv_Soil_stocke\") || \"Horodatage;humiditè_Moyenne\\r\\nCollecte en cours...;0\";\n\nmsg.payload = csvPret;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1690,
+        "y": 1960,
+        "wires": [
+            [
+                "5f527eecb70f5457"
+            ]
+        ]
+    },
+    {
+        "id": "176731dc52237525",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "Requête InfluxDB",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"valeurSoil\")\n",
+        "rawOutput": false,
+        "precision": "m",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1750,
+        "y": 1880,
+        "wires": [
+            [
+                "235df918a2dcb535"
+            ]
+        ]
+    },
+    {
+        "id": "9cf9af9c0b72b419",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "add field",
+        "func": "\nmsg.payload = {\n    valeurCiterne: msg.payload //   humidity: XX.X \n};\n\n\nreturn msg;  // {valeurCiterne: XX.X}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 1560,
+        "wires": [
+            [
+                "0ca70a6d5ba5ca29"
+            ]
+        ]
+    },
+    {
+        "id": "0ca70a6d5ba5ca29",
+        "type": "influxdb out",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb-almikatro",
+        "measurement": "msg",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "IOT",
+        "bucket": "almikatro",
+        "x": 1070,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "ac9b3cbd34ee1069",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 5s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1480,
+        "y": 760,
+        "wires": [
+            [
+                "0b281141ae261ea3"
+            ]
+        ]
+    },
+    {
+        "id": "0b281141ae261ea3",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb in",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -5m)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"valeurCiterne\")\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1700,
+        "y": 760,
+        "wires": [
+            [
+                "d31d2ea77115b5bb",
+                "ca7f115b6421542b"
+            ]
+        ]
+    },
+    {
+        "id": "d31d2ea77115b5bb",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1860,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "ca7f115b6421542b",
+        "type": "ui-chart",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Citerne",
+        "label": "citerne",
+        "order": 29,
+        "chartType": "line",
+        "category": "Citerne",
+        "categoryType": "str",
+        "xAxisLabel": "time",
+        "xAxisProperty": "_time",
+        "xAxisPropertyType": "property",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Citerne",
+        "yAxisProperty": "_value",
+        "yAxisPropertyType": "property",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "replace",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "5",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#1e7efa",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": false,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": false,
+        "width": 4,
+        "height": 7,
+        "className": "",
+        "interpolation": "linear",
+        "x": 1890,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7683f380a21d7ed",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "Script Téléchargement",
+        "order": 23,
+        "width": 2,
+        "height": 0,
+        "format": "<script>\nexport default {\n    mounted() {\n        this.$socket.on('msg-input:' + this.id, (msg) => {\n            if (msg && msg.payload) {\n                var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), msg.payload], { type: 'text/csv;charset=utf-8;' });\n                var link = document.createElement(\"a\");\n                var url = URL.createObjectURL(blob);\n                link.setAttribute(\"href\", url);\n                link.setAttribute(\"download\", \"Base_de_donnees_Soil.csv\");\n                link.style.visibility = 'hidden';\n                document.body.appendChild(link);\n                link.click();\n                document.body.removeChild(link);\n                msg.payload = null;\n            }\n        });\n    }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": false,
+        "passthru": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 2060,
+        "y": 2160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "714767a05fc3c7df",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 1m",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1440,
+        "y": 2080,
+        "wires": [
+            [
+                "6f7c995cb2530fb3"
+            ]
+        ]
+    },
+    {
+        "id": "68cb20451e5cdaf4",
+        "type": "ui-button",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "name": "Télécharger CSV",
+        "label": "Télécharger la base de données de Citerne(CSV)",
+        "order": 27,
+        "width": 2,
+        "height": 0,
+        "emulateClick": false,
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "CLIC_MANUEL_Citerne",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1470,
+        "y": 2160,
+        "wires": [
+            [
+                "70928b59c6d6c1d5"
+            ]
+        ]
+    },
+    {
+        "id": "bf428cb3d848246b",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 14",
+        "func": "// 1. Récupération du tableau de points brut d'InfluxDB\nlet points = msg.payload;\nlet groupes = {};\n\n// Fonction d'expert pour convertir la date ISO d'InfluxDB en format standard Excel\nfunction formaterDate(isoString) {\n    let d = new Date(isoString);\n    if (isNaN(d.getTime())) return isoString; // Sécurité si la date est invalide\n    const jj = String(d.getDate()).padStart(2, '0');\n    const mm = String(d.getMonth() + 1).padStart(2, '0');\n    const aa = d.getFullYear();\n    const hh = String(d.getHours()).padStart(2, '0');\n    const min = String(d.getMinutes()).padStart(2, '0');\n    return jj + \"/\" + mm + \"/\" + aa + \" \" + hh + \":\" + min;\n}\n\n// 2. Regroupement des valeurs de Citerne par abscisse (time) identique\nif (Array.isArray(points)) {\n    points.forEach(point => {\n        if (point && point._time && point._value !== undefined && point._value !== null) {\n            // Conversion immédiate de l'abscisse en date propre pour le dictionnaire\n            let abscisse = formaterDate(point._time);\n            let valeurNumerique = parseFloat(point._value);\n            \n            if (!isNaN(valeurNumerique)) {\n                if (!groupes[abscisse]) {\n                    groupes[abscisse] = {\n                        somme: 0,\n                        compteur: 0\n                    };\n                }\n                groupes[abscisse].somme += valeurNumerique;\n                groupes[abscisse].compteur++;\n            }\n        }\n    });\n}\n\n// 3. Calcul de la moyenne pour chaque abscisse unique et formatage CSV\nlet lignes = [\"Horodatage;niveau d'eau\"];\nlet toutesLesAbscisses = Object.keys(groupes);\n\ntoutesLesAbscisses.forEach(abscisse => {\n    let donneesAbscisse = groupes[abscisse];\n    let moyenne = donneesAbscisse.somme / donneesAbscisse.compteur;\n    let moyenneArrondie = moyenne.toFixed(2);\n    \n    lignes.push(abscisse + \";\" + moyenneArrondie);\n});\n\nif (lignes.length === 1) {\n    lignes.push(\"Aucune donnee calculee;0\");\n}\n\n// MODIFICATION EXPERT : On stocke le texte CSV dans la mémoire globale\nglobal.set(\"csv_Citerne_stocke\", lignes.join(\"\\r\\n\"));\n\n// On renvoie 'null' pour bloquer le flux et empêcher tout téléchargement automatique\nreturn null; ",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2050,
+        "y": 2080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "70928b59c6d6c1d5",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 15",
+        "func": "// SÉCURITÉ : On exécute le code UNIQUEMENT si le message provient du clic sur le bouton\nif (msg.topic !== \"CLIC_MANUEL_Citerne\") {\n    return null; // Bloque absolument tout message parasite ou automatique\n}\n\n// Récupération instantanée du fichier CSV mis à jour par la ligne du haut\nlet csvPret = global.get(\"csv_Citerne_stocke\") || \"Horodatage;niveau d'eau\\r\\nCollecte en cours...;0\";\n\nmsg.payload = csvPret;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1690,
+        "y": 2160,
+        "wires": [
+            [
+                "c7683f380a21d7ed"
+            ]
+        ]
+    },
+    {
+        "id": "6f7c995cb2530fb3",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "Requête InfluxDB",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"msg\" and r[\"_field\"] == \"valeurCiterne\")\n",
+        "rawOutput": false,
+        "precision": "m",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1750,
+        "y": 2080,
+        "wires": [
+            [
+                "bf428cb3d848246b"
+            ]
+        ]
+    },
+    {
+        "id": "9f469455879555f8",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "@flowfuse/node-red-dashboard": "1.36.0"
+        }
+    }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "supervision-T_H_S-nodered",
+  "version": "1.0.0",
+  "description": "Projet Node-RED avec Dashboard 2.0 et InfluxDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-red": "^4.0.0",
+    "@flowfuse/node-red-dashboard": "^1.15.0",
+    "node-red-contrib-influxdb": "^0.7.0"
+  }
+}
