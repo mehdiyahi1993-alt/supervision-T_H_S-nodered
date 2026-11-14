@@ -1,4 +1,5 @@
 node_modules/
-flows_cred.json
-.config*.json
-.sessions.json
+# data/flows_cred.json
+data/.config*.json
+data/.sessions.json
+data/lib/

@@ -8,11 +8,12 @@ const server = http.createServer(app);
 
 // 2. Configuration des paramètres de Node-RED
 const settings = {
-    httpAdminRoot: "/red",          // Éditeur accessible sur http://localhost:1880/red
-    httpNodeRoot: "/",              // Dashboard accessible sur http://localhost:1880/dashboard
-    userDir: "./data",              // Pointe directement vers votre sous-dossier data
-    flowFile: "flows.json",         // Nom exact du fichier de flux dans le dossier data
-    functionGlobalContext: { }      // Initialise la mémoire globale (global.get / global.set)
+    httpAdminRoot: "/red",
+    httpNodeRoot: "/",
+    userDir: "./data",
+    flowFile: "flows.json",
+    credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET || "supervision-iot-secret-2026",
+    functionGlobalContext: { }
 };
 
 // 3. Initialisation de Node-RED
