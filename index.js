@@ -19,9 +19,16 @@ const settings = {
 // 3. Initialisation de Node-RED
 RED.init(server, settings);
 
+
+// Redirection automatique de la racine vers le Dashboard
+app.get('/', (req, res) => {
+    res.redirect('/dashboard');
+});
+
 // 4. Liaison des routes web
 app.use(settings.httpAdminRoot, RED.httpAdmin);
 app.use(settings.httpNodeRoot, RED.httpNode);
+
 
 // 5. Démarrage du serveur sur le port 1880
 const port = process.env.PORT || 1880;
