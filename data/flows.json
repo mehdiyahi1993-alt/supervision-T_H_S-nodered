@@ -400,19 +400,19 @@
         "page": "",
         "ui": "",
         "name": "date et heur",
-        "order": 2,
-        "width": 0,
-        "height": 0,
+        "order": 1,
+        "width": "12",
+        "height": "3",
         "head": "",
-        "format": "<div style=\"text-align: center; padding: 15px; background-color: rgba(0,0,0,0.03); border-radius: 8px; margin-bottom: 15px; font-family: 'Segoe UI', sans-serif;\">\n    <!-- Section Date & Heure -->\n    <div style=\"margin-bottom: 6px;\">\n        <v-icon size=\"small\" color=\"primary\" style=\"margin-right: 6px;\">mdi-clock-outline</v-icon>\n        <span style=\"font-size: 16px; font-weight: 600; color: #222;\">\n            {{ currentDateTime }}\n        </span>\n    </div>\n\n\n</div>\n\n<script>\n    export default {\n        data() {\n            return {\n                currentDateTime: '',\n                timer: null\n            }\n        },\n        methods: {\n            updateTime() {\n                const now = new Date();\n                this.currentDateTime = now.toLocaleDateString('fr-FR', {\n                    weekday: 'long',\n                    day: 'numeric',\n                    month: 'long',\n                    year: 'numeric'\n                }) + ' à ' + now.toLocaleTimeString('fr-FR');\n            }\n        },\n        mounted() {\n            this.updateTime();\n            this.timer = setInterval(this.updateTime, 1000);\n        },\n        unmounted() {\n            clearInterval(this.timer);\n        }\n    }\n</script>\n",
+        "format": "<template>\n  <!-- Conteneur principal unifié (même fond d'arrière-plan, disposition gauche / droite) -->\n  <div class=\"unified-container\">\n    \n    <!-- GAUCHE : Date, Heure et Nom de la Station -->\n    <div class=\"left-section\">\n      <!-- Section Date & Heure (Police augmentée à 22px) -->\n      <div style=\"margin-bottom: 12px; display: flex; align-items: center;\">\n        <v-icon size=\"default\" color=\"primary\" style=\"margin-right: 8px;\">mdi-clock-outline</v-icon>\n        <span style=\"font-size: 22px; font-weight: 700; color: #f8fafc; line-height: 1.2;\">\n          {{ currentDateTime }}\n        </span>\n      </div>\n\n      <!-- Section Nom de la Station (Police augmentée à 18px) -->\n      <div style=\"display: flex; align-items: center;\">\n        <v-icon size=\"small\" color=\"error\" style=\"margin-right: 8px;\">mdi-map-marker</v-icon>\n        <span style=\"font-size: 18px; font-weight: 600; color: #94a3b8;\">\n          {{ stationName }}\n        </span>\n      </div>\n    </div>\n\n    <!-- Séparateur vertical subtil -->\n    <div class=\"divider\"></div>\n\n    <!-- DROITE : Carte Signal Wi-Fi -->\n    <div class=\"right-section\">\n      <div class=\"wifi-title\">SIGNAL WI-FI</div>\n      <div class=\"wifi-ssid\">{{ ssid }}</div>\n      \n      <!-- Vrai symbole Wi-Fi vectoriel réduit (32px) -->\n      <svg viewBox=\"0 0 24 24\" class=\"wifi-svg\">\n        <!-- Arc 4 (Très fort >= 75%) -->\n        <path d=\"M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9z\" \n              :fill=\"percent >= 75 ? couleurSignal : '#334155'\" />\n        <!-- Arc 3 (Bon >= 50%) -->\n        <path d=\"M5 13l2 2c2.76-2.76 7.24-2.76 10 0l2-2c-3.87-3.87-10.13-3.87-14 0z\" \n              :fill=\"percent >= 50 ? couleurSignal : '#334155'\" />\n        <!-- Arc 2 (Moyen >= 25%) -->\n        <path d=\"M9 17l2 2c.55-.55 1.45-.55 2 0l2-2c-1.66-1.66-4.34-1.66-6 0z\" \n              :fill=\"percent >= 25 ? couleurSignal : '#334155'\" />\n        <!-- Point central (Connecté > 0%) -->\n        <circle cx=\"12\" cy=\"21\" r=\"1.5\" \n                :fill=\"percent > 0 ? couleurSignal : '#ef4444'\" />\n      </svg>\n\n      <div class=\"wifi-values\">\n        <span class=\"wifi-percent\" :style=\"{ color: couleurSignal }\">{{ percent }} %</span>\n        <span class=\"wifi-rssi\">{{ rssi }} dBm</span>\n      </div>\n    </div>\n\n  </div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return {\n      currentDateTime: '',\n      timer: null,\n      stationName: 'En attente de localisation...',\n      ssid: 'Non connecté',\n      percent: 0,\n      rssi: '--'\n    }\n  },\n  watch: {\n    msg(newMsg) {\n      if (newMsg && newMsg.payload) {\n        if (newMsg.payload.name !== undefined) {\n          this.stationName = newMsg.payload.name;\n        }\n        if (newMsg.payload.ssid !== undefined) {\n          this.ssid = newMsg.payload.ssid;\n        }\n        if (newMsg.payload.percent !== undefined) {\n          this.percent = newMsg.payload.percent;\n        }\n        if (newMsg.payload.rssi !== undefined) {\n          this.rssi = newMsg.payload.rssi;\n        }\n      }\n    }\n  },\n  computed: {\n    couleurSignal() {\n      if (this.percent >= 70) return '#10b981'; // Vert (Excellent)\n      if (this.percent >= 40) return '#f59e0b'; // Orange (Moyen)\n      return '#ef4444';                         // Rouge (Faible)\n    }\n  },\n  methods: {\n    updateTime() {\n      const now = new Date();\n      this.currentDateTime = now.toLocaleDateString('fr-FR', {\n        weekday: 'long',\n        day: 'numeric',\n        month: 'long',\n        year: 'numeric'\n      }) + ' à ' + now.toLocaleTimeString('fr-FR');\n    }\n  },\n  mounted() {\n    this.updateTime();\n    this.timer = setInterval(this.updateTime, 1000);\n  },\n  unmounted() {\n    clearInterval(this.timer);\n  }\n}\n</script>\n\n<style scoped>\n.unified-container {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: space-between;\n  padding: 16px 20px;\n  background: #1e293b;\n  border-radius: 12px;\n  border: 1px solid #334155;\n  font-family: 'Segoe UI', sans-serif;\n  height: 100%;\n  gap: 16px;\n}\n\n.left-section {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  text-align: left;\n}\n\n.divider {\n  width: 1px;\n  align-self: stretch;\n  background-color: #334155;\n}\n\n.right-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-width: 115px;\n}\n\n.wifi-title {\n  font-size: 0.65rem;\n  font-weight: 700;\n  color: #94a3b8;\n  letter-spacing: 0.05em;\n}\n\n.wifi-ssid {\n  font-size: 0.85rem;\n  font-weight: 700;\n  color: #38bdf8;\n  margin-top: 2px;\n  margin-bottom: 4px;\n}\n\n/* Taille du symbole Wi-Fi diminuée à 32px */\n.wifi-svg {\n  width: 32px;\n  height: 32px;\n  margin: 2px 0;\n}\n\n.wifi-svg path, .wifi-svg circle {\n  transition: fill 0.4s ease;\n}\n\n.wifi-values {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-top: 2px;\n}\n\n.wifi-percent {\n  font-size: 1.05rem;\n  font-weight: 800;\n}\n\n.wifi-rssi {\n  font-size: 0.75rem;\n  color: #64748b;\n  margin-top: 1px;\n}\n</style>\n",
         "noerr": 0,
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1730,
-        "y": 60,
+        "x": 530,
+        "y": 1920,
         "wires": [
             []
         ]
@@ -1232,7 +1232,8 @@
         "y": 900,
         "wires": [
             [
-                "f62106fcc13c61ae"
+                "f62106fcc13c61ae",
+                "25596314c1ed3977"
             ]
         ]
     },
@@ -1728,8 +1729,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
-        "y": 1440,
+        "x": 540,
+        "y": 2120,
         "wires": []
     },
     {
@@ -2528,12 +2529,13 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 190,
-        "y": 1360,
+        "x": 230,
+        "y": 2040,
         "wires": [
             [
                 "cf6da1f9446fbc6c",
-                "f83c20ccaf1b461b"
+                "f83c20ccaf1b461b",
+                "c58678e09370653f"
             ]
         ]
     },
@@ -2565,8 +2567,8 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 500,
-        "y": 1360,
+        "x": 540,
+        "y": 2040,
         "wires": []
     },
     {
@@ -2577,7 +2579,7 @@
         "page": "",
         "ui": "",
         "name": "",
-        "order": 1,
+        "order": 2,
         "width": 0,
         "height": 0,
         "head": "",
@@ -2595,7 +2597,44 @@
         ]
     },
     {
-        "id": "75e98e1a527a4830",
+        "id": "c053ce9d0a8e9401",
+        "type": "mqtt in",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "topic": "almikatro/yahi/wifi",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "aba54a98a7aec3f0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 1920,
+        "wires": [
+            [
+                "c58678e09370653f"
+            ]
+        ]
+    },
+    {
+        "id": "25596314c1ed3977",
+        "type": "debug",
+        "z": "a7f113151a4d4e20",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "171695ab01a44c59",
         "type": "global-config",
         "env": [],
         "modules": {
