@@ -146,6 +146,33 @@
         "tab": ""
     },
     {
+        "id": "2498759f5bfed7ea",
+        "type": "telegram bot",
+        "botname": "Station_Ain_Naadja_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": 300,
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": 6667,
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbothost": "0.0.0.0",
+        "localbotport": 8443,
+        "publicbotport": 8443,
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
         "id": "8f6636854f479ecb",
         "type": "mqtt in",
         "z": "a7f113151a4d4e20",
@@ -400,18 +427,18 @@
         "page": "",
         "ui": "",
         "name": "date et heur",
-        "order": 1,
+        "order": 2,
         "width": "12",
         "height": "3",
         "head": "",
-        "format": "<template>\n  <!-- Conteneur principal unifié (même fond d'arrière-plan, disposition gauche / droite) -->\n  <div class=\"unified-container\">\n    \n    <!-- GAUCHE : Date, Heure et Nom de la Station -->\n    <div class=\"left-section\">\n      <!-- Section Date & Heure (Police augmentée à 22px) -->\n      <div style=\"margin-bottom: 12px; display: flex; align-items: center;\">\n        <v-icon size=\"default\" color=\"primary\" style=\"margin-right: 8px;\">mdi-clock-outline</v-icon>\n        <span style=\"font-size: 22px; font-weight: 700; color: #f8fafc; line-height: 1.2;\">\n          {{ currentDateTime }}\n        </span>\n      </div>\n\n      <!-- Section Nom de la Station (Police augmentée à 18px) -->\n      <div style=\"display: flex; align-items: center;\">\n        <v-icon size=\"small\" color=\"error\" style=\"margin-right: 8px;\">mdi-map-marker</v-icon>\n        <span style=\"font-size: 18px; font-weight: 600; color: #94a3b8;\">\n          {{ stationName }}\n        </span>\n      </div>\n    </div>\n\n    <!-- Séparateur vertical subtil -->\n    <div class=\"divider\"></div>\n\n    <!-- DROITE : Carte Signal Wi-Fi -->\n    <div class=\"right-section\">\n      <div class=\"wifi-title\">SIGNAL WI-FI</div>\n      <div class=\"wifi-ssid\">{{ ssid }}</div>\n      \n      <!-- Vrai symbole Wi-Fi vectoriel réduit (32px) -->\n      <svg viewBox=\"0 0 24 24\" class=\"wifi-svg\">\n        <!-- Arc 4 (Très fort >= 75%) -->\n        <path d=\"M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9z\" \n              :fill=\"percent >= 75 ? couleurSignal : '#334155'\" />\n        <!-- Arc 3 (Bon >= 50%) -->\n        <path d=\"M5 13l2 2c2.76-2.76 7.24-2.76 10 0l2-2c-3.87-3.87-10.13-3.87-14 0z\" \n              :fill=\"percent >= 50 ? couleurSignal : '#334155'\" />\n        <!-- Arc 2 (Moyen >= 25%) -->\n        <path d=\"M9 17l2 2c.55-.55 1.45-.55 2 0l2-2c-1.66-1.66-4.34-1.66-6 0z\" \n              :fill=\"percent >= 25 ? couleurSignal : '#334155'\" />\n        <!-- Point central (Connecté > 0%) -->\n        <circle cx=\"12\" cy=\"21\" r=\"1.5\" \n                :fill=\"percent > 0 ? couleurSignal : '#ef4444'\" />\n      </svg>\n\n      <div class=\"wifi-values\">\n        <span class=\"wifi-percent\" :style=\"{ color: couleurSignal }\">{{ percent }} %</span>\n        <span class=\"wifi-rssi\">{{ rssi }} dBm</span>\n      </div>\n    </div>\n\n  </div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return {\n      currentDateTime: '',\n      timer: null,\n      stationName: 'En attente de localisation...',\n      ssid: 'Non connecté',\n      percent: 0,\n      rssi: '--'\n    }\n  },\n  watch: {\n    msg(newMsg) {\n      if (newMsg && newMsg.payload) {\n        if (newMsg.payload.name !== undefined) {\n          this.stationName = newMsg.payload.name;\n        }\n        if (newMsg.payload.ssid !== undefined) {\n          this.ssid = newMsg.payload.ssid;\n        }\n        if (newMsg.payload.percent !== undefined) {\n          this.percent = newMsg.payload.percent;\n        }\n        if (newMsg.payload.rssi !== undefined) {\n          this.rssi = newMsg.payload.rssi;\n        }\n      }\n    }\n  },\n  computed: {\n    couleurSignal() {\n      if (this.percent >= 70) return '#10b981'; // Vert (Excellent)\n      if (this.percent >= 40) return '#f59e0b'; // Orange (Moyen)\n      return '#ef4444';                         // Rouge (Faible)\n    }\n  },\n  methods: {\n    updateTime() {\n      const now = new Date();\n      this.currentDateTime = now.toLocaleDateString('fr-FR', {\n        weekday: 'long',\n        day: 'numeric',\n        month: 'long',\n        year: 'numeric'\n      }) + ' à ' + now.toLocaleTimeString('fr-FR');\n    }\n  },\n  mounted() {\n    this.updateTime();\n    this.timer = setInterval(this.updateTime, 1000);\n  },\n  unmounted() {\n    clearInterval(this.timer);\n  }\n}\n</script>\n\n<style scoped>\n.unified-container {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: space-between;\n  padding: 16px 20px;\n  background: #1e293b;\n  border-radius: 12px;\n  border: 1px solid #334155;\n  font-family: 'Segoe UI', sans-serif;\n  height: 100%;\n  gap: 16px;\n}\n\n.left-section {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  text-align: left;\n}\n\n.divider {\n  width: 1px;\n  align-self: stretch;\n  background-color: #334155;\n}\n\n.right-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-width: 115px;\n}\n\n.wifi-title {\n  font-size: 0.65rem;\n  font-weight: 700;\n  color: #94a3b8;\n  letter-spacing: 0.05em;\n}\n\n.wifi-ssid {\n  font-size: 0.85rem;\n  font-weight: 700;\n  color: #38bdf8;\n  margin-top: 2px;\n  margin-bottom: 4px;\n}\n\n/* Taille du symbole Wi-Fi diminuée à 32px */\n.wifi-svg {\n  width: 32px;\n  height: 32px;\n  margin: 2px 0;\n}\n\n.wifi-svg path, .wifi-svg circle {\n  transition: fill 0.4s ease;\n}\n\n.wifi-values {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-top: 2px;\n}\n\n.wifi-percent {\n  font-size: 1.05rem;\n  font-weight: 800;\n}\n\n.wifi-rssi {\n  font-size: 0.75rem;\n  color: #64748b;\n  margin-top: 1px;\n}\n</style>\n",
+        "format": "<template>\n  <!-- Conteneur principal unifié (même fond d'arrière-plan, disposition gauche / droite) -->\n  <div class=\"unified-container\">\n    \n    <!-- GAUCHE : Date, Heure et Nom de la Station -->\n    <div class=\"left-section\">\n      <!-- Section Date & Heure (Police augmentée à 22px) -->\n      <div style=\"margin-bottom: 12px; display: flex; align-items: center;\">\n        <v-icon size=\"default\" color=\"primary\" style=\"margin-right: 8px;\">mdi-clock-outline</v-icon>\n        <span style=\"font-size: 22px; font-weight: 700; color: #f8fafc; line-height: 1.2;\">\n          {{ currentDateTime }}\n        </span>\n      </div>\n\n      <!-- Section Nom de la Station (Police augmentée à 18px) -->\n      <div style=\"display: flex; align-items: center;\">\n        <v-icon size=\"small\" color=\"error\" style=\"margin-right: 8px;\">mdi-map-marker</v-icon>\n        <span style=\"font-size: 18px; font-weight: 600; color: #94a3b8;\">\n          {{ stationName }}\n        </span>\n      </div>\n    </div>\n\n    <!-- Séparateur vertical subtil -->\n    <div class=\"divider\"></div>\n\n    <!-- DROITE : Carte Signal Wi-Fi -->\n    <div class=\"right-section\">\n      <div class=\"wifi-title\">SIGNAL WI-FI</div>\n      <div class=\"wifi-ssid\" :style=\"{ color: isOffline ? '#ef4444' : '#38bdf8' }\">{{ ssid }}</div>\n      \n      <!-- Vrai symbole Wi-Fi vectoriel réduit (32px) -->\n      <svg viewBox=\"0 0 24 24\" class=\"wifi-svg\">\n        <!-- Arc 4 (Très fort >= 75%) -->\n        <path d=\"M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9z\" \n              :fill=\"percent >= 75 ? couleurSignal : '#334155'\" />\n        <!-- Arc 3 (Bon >= 50%) -->\n        <path d=\"M5 13l2 2c2.76-2.76 7.24-2.76 10 0l2-2c-3.87-3.87-10.13-3.87-14 0z\" \n              :fill=\"percent >= 50 ? couleurSignal : '#334155'\" />\n        <!-- Arc 2 (Moyen >= 25%) -->\n        <path d=\"M9 17l2 2c.55-.55 1.45-.55 2 0l2-2c-1.66-1.66-4.34-1.66-6 0z\" \n              :fill=\"percent >= 25 ? couleurSignal : '#334155'\" />\n        <!-- Point central (Connecté > 0%) -->\n        <circle cx=\"12\" cy=\"21\" r=\"1.5\" \n                :fill=\"percent > 0 ? couleurSignal : '#ef4444'\" />\n      </svg>\n\n      <div class=\"wifi-values\">\n        <span class=\"wifi-percent\" :style=\"{ color: couleurSignal }\">{{ percent }} %</span>\n        <span class=\"wifi-rssi\">{{ rssi }} dBm</span>\n      </div>\n    </div>\n\n  </div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return {\n      currentDateTime: '',\n      timer: null,\n      stationName: 'En attente de localisation...',\n      ssid: 'Non connecté',\n      percent: 0,\n      rssi: '--',\n      isOffline: true\n    }\n  },\n  watch: {\n    msg(newMsg) {\n      if (newMsg && newMsg.payload !== undefined) {\n        // 1. Détection du statut LWT (\"offline\" ou \"online\" envoyé en texte brut)\n        if (typeof newMsg.payload === 'string') {\n          const statut = newMsg.payload.trim();\n          if (statut === 'offline') {\n            this.isOffline = true;\n            this.ssid = 'Hors ligne';\n            this.percent = 0;\n            this.rssi = '--';\n            return;\n          } else if (statut === 'online') {\n            this.isOffline = false;\n            return;\n          }\n        }\n\n        // 2. Mise à jour des données JSON (Localisation et Wi-Fi)\n        if (typeof newMsg.payload === 'object' && newMsg.payload !== null) {\n          if (newMsg.payload.name !== undefined) {\n            this.stationName = newMsg.payload.name;\n          }\n          if (newMsg.payload.ssid !== undefined) {\n            this.isOffline = false;\n            this.ssid = newMsg.payload.ssid;\n          }\n          if (newMsg.payload.percent !== undefined) {\n            this.isOffline = false;\n            this.percent = newMsg.payload.percent;\n          }\n          if (newMsg.payload.rssi !== undefined) {\n            this.isOffline = false;\n            this.rssi = newMsg.payload.rssi;\n          }\n        }\n      }\n    }\n  },\n  computed: {\n    couleurSignal() {\n      if (this.isOffline || this.percent === 0) return '#ef4444'; // Rouge (Déconnecté)\n      if (this.percent >= 70) return '#10b981';                   // Vert (Excellent)\n      if (this.percent >= 40) return '#f59e0b';                   // Orange (Moyen)\n      return '#ef4444';                                           // Rouge (Faible)\n    }\n  },\n  methods: {\n    updateTime() {\n      const now = new Date();\n      this.currentDateTime = now.toLocaleDateString('fr-FR', {\n        weekday: 'long',\n        day: 'numeric',\n        month: 'long',\n        year: 'numeric'\n      }) + ' à ' + now.toLocaleTimeString('fr-FR');\n    }\n  },\n  mounted() {\n    this.updateTime();\n    this.timer = setInterval(this.updateTime, 1000);\n  },\n  unmounted() {\n    clearInterval(this.timer);\n  }\n}\n</script>\n\n<style scoped>\n.unified-container {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: space-between;\n  padding: 16px 20px;\n  background: #1e293b;\n  border-radius: 12px;\n  border: 1px solid #334155;\n  font-family: 'Segoe UI', sans-serif;\n  height: 100%;\n  gap: 16px;\n}\n\n.left-section {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  text-align: left;\n}\n\n.divider {\n  width: 1px;\n  align-self: stretch;\n  background-color: #334155;\n}\n\n.right-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-width: 115px;\n}\n\n.wifi-title {\n  font-size: 0.65rem;\n  font-weight: 700;\n  color: #94a3b8;\n  letter-spacing: 0.05em;\n}\n\n.wifi-ssid {\n  font-size: 0.85rem;\n  font-weight: 700;\n  color: #38bdf8;\n  margin-top: 2px;\n  margin-bottom: 4px;\n}\n\n/* Taille du symbole Wi-Fi diminuée à 32px */\n.wifi-svg {\n  width: 32px;\n  height: 32px;\n  margin: 2px 0;\n}\n\n.wifi-svg path, .wifi-svg circle {\n  transition: fill 0.4s ease;\n}\n\n.wifi-values {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-top: 2px;\n}\n\n.wifi-percent {\n  font-size: 1.05rem;\n  font-weight: 800;\n}\n\n.wifi-rssi {\n  font-size: 0.75rem;\n  color: #64748b;\n  margin-top: 1px;\n}\n</style>\n",
         "noerr": 0,
         "storeOutMessages": true,
         "passthru": true,
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 530,
+        "x": 630,
         "y": 1920,
         "wires": [
             []
@@ -921,7 +948,8 @@
             ],
             [
                 "5d9bf1ada3b0706f",
-                "50860a07992da7ed"
+                "50860a07992da7ed",
+                "19b43a581dd8fec7"
             ]
         ]
     },
@@ -945,7 +973,8 @@
             ],
             [
                 "ebc876651d284d46",
-                "7bc7dbd247a9aa9b"
+                "7bc7dbd247a9aa9b",
+                "661d4db1a285a59a"
             ]
         ]
     },
@@ -997,7 +1026,8 @@
             [
                 "8d0bf48d0cdfb406",
                 "582505864167b6c6",
-                "8c37a0d6b7602e85"
+                "8c37a0d6b7602e85",
+                "6f9abee213891266"
             ]
         ]
     },
@@ -1039,7 +1069,8 @@
             ],
             [
                 "646800820526bd48",
-                "255a35e676b39bd6"
+                "255a35e676b39bd6",
+                "8ead8e2539add9d4"
             ]
         ]
     },
@@ -1232,8 +1263,7 @@
         "y": 900,
         "wires": [
             [
-                "f62106fcc13c61ae",
-                "25596314c1ed3977"
+                "f62106fcc13c61ae"
             ]
         ]
     },
@@ -1722,15 +1752,15 @@
         "type": "debug",
         "z": "a7f113151a4d4e20",
         "name": "debug 4",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 540,
-        "y": 2120,
+        "x": 1820,
+        "y": 1160,
         "wires": []
     },
     {
@@ -1762,7 +1792,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 1380,
-        "y": 1400,
+        "y": 1520,
         "wires": [
             [
                 "b6169c62dafaf8c4"
@@ -1782,7 +1812,7 @@
         "finalize": "",
         "libs": [],
         "x": 1640,
-        "y": 1400,
+        "y": 1520,
         "wires": [
             [
                 "d9acc842dad4dc99"
@@ -1808,7 +1838,7 @@
         "templateScope": "local",
         "className": "",
         "x": 1970,
-        "y": 1400,
+        "y": 1520,
         "wires": [
             []
         ]
@@ -1832,7 +1862,7 @@
         "templateScope": "local",
         "className": "",
         "x": 2060,
-        "y": 1560,
+        "y": 1680,
         "wires": [
             []
         ]
@@ -1855,7 +1885,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 1400,
-        "y": 1480,
+        "y": 1600,
         "wires": [
             [
                 "fd9fbc9924437568"
@@ -1891,7 +1921,7 @@
         "pointerupPayload": "",
         "pointerupPayloadType": "str",
         "x": 1430,
-        "y": 1560,
+        "y": 1680,
         "wires": [
             [
                 "6c7ccfa97985453e"
@@ -1911,7 +1941,7 @@
         "finalize": "",
         "libs": [],
         "x": 2030,
-        "y": 1480,
+        "y": 1600,
         "wires": [
             []
         ]
@@ -1929,7 +1959,7 @@
         "finalize": "",
         "libs": [],
         "x": 1650,
-        "y": 1560,
+        "y": 1680,
         "wires": [
             [
                 "5c4d20b864c4d4dd"
@@ -1948,7 +1978,7 @@
         "retentionPolicy": "",
         "org": "IOT",
         "x": 1710,
-        "y": 1480,
+        "y": 1600,
         "wires": [
             [
                 "485f93ae0ea4f6b4"
@@ -2225,8 +2255,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 1560,
+        "x": 980,
+        "y": 1320,
         "wires": [
             [
                 "0ca70a6d5ba5ca29"
@@ -2247,8 +2277,8 @@
         "retentionPolicyV18Flux": "",
         "org": "IOT",
         "bucket": "almikatro",
-        "x": 1070,
-        "y": 1560,
+        "x": 1170,
+        "y": 1320,
         "wires": []
     },
     {
@@ -2533,7 +2563,6 @@
         "y": 2040,
         "wires": [
             [
-                "cf6da1f9446fbc6c",
                 "f83c20ccaf1b461b",
                 "c58678e09370653f"
             ]
@@ -2567,34 +2596,9 @@
         "mapurl": "",
         "mapopt": "",
         "mapwms": false,
-        "x": 540,
+        "x": 620,
         "y": 2040,
         "wires": []
-    },
-    {
-        "id": "71f19a799a7e06ba",
-        "type": "ui-template",
-        "z": "a7f113151a4d4e20",
-        "group": "f890b5b2cc5d2c2d",
-        "page": "",
-        "ui": "",
-        "name": "",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "head": "",
-        "format": "<template>\n  <div style=\"width: 100%; height: 450px; overflow: hidden; border-radius: 8px;\">\n    <iframe src=\"/worldmap\" style=\"width: 100%; height: 100%; border: none;\"></iframe>\n  </div>\n</template>\n",
-        "noerr": 0,
-        "storeOutMessages": true,
-        "passthru": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 460,
-        "y": 1720,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "c053ce9d0a8e9401",
@@ -2629,17 +2633,318 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 460,
-        "y": 1000,
+        "x": 2260,
+        "y": 1320,
         "wires": []
     },
     {
-        "id": "171695ab01a44c59",
+        "id": "0d9f0744c26dc557",
+        "type": "mqtt in",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "topic": "almikatro/yahi/status",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "aba54a98a7aec3f0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 2200,
+        "wires": [
+            [
+                "123a6edd90c30f95",
+                "34a9885a37593117",
+                "c58678e09370653f",
+                "dad550d5fd2e1311"
+            ]
+        ]
+    },
+    {
+        "id": "123a6edd90c30f95",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 16",
+        "func": "let estEnLigne = (msg.payload === \"online\");\n\nmsg.payload = {\n    name: \"Station Ain Naadja\",\n    icon: \"microchip\",\n    iconColor: estEnLigne ? \"green\" : \"red\",\n    extrainfo: estEnLigne ? \"Statut : EN LIGNE\" : \"ALERTE : STATION HORS LIGNE\"\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 2200,
+        "wires": [
+            [
+                "f83c20ccaf1b461b"
+            ]
+        ]
+    },
+    {
+        "id": "34a9885a37593117",
+        "type": "ui-template",
+        "z": "a7f113151a4d4e20",
+        "group": "f890b5b2cc5d2c2d",
+        "page": "",
+        "ui": "",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n  <div style=\"width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid #334155;\">\n    <!-- Bandeau d'état LWT au-dessus de la carte -->\n    <div :style=\"{\n      padding: '8px 12px',\n      textAlign: 'center',\n      fontWeight: 'bold',\n      fontSize: '13px',\n      fontFamily: 'sans-serif',\n      backgroundColor: isOnline ? '#10b981' : '#ef4444',\n      color: '#ffffff'\n    }\">\n      {{ isOnline ? '● STATION EN LIGNE' : '▲ ALERTE : STATION HORS LIGNE' }}\n    </div>\n\n    <!-- Votre carte inchangée -->\n    <div style=\"width: 100%; height: 420px;\">\n      <iframe src=\"/worldmap\" style=\"width: 100%; height: 100%; border: none;\"></iframe>\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return { status: 'offline' }\n  },\n  watch: {\n    msg(newMsg) {\n      if (newMsg && newMsg.payload) {\n        this.status = String(newMsg.payload).trim();\n      }\n    }\n  },\n  computed: {\n    isOnline() {\n      return this.status === 'online';\n    }\n  }\n}\n</script>\n",
+        "noerr": 0,
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 420,
+        "y": 2320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "850d21caf155c1eb",
+        "type": "telegram sender",
+        "z": "a7f113151a4d4e20",
+        "name": "Station Ain Naadja",
+        "bot": "2498759f5bfed7ea",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1950,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "29ac80bb824d59e7",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "function 18",
+        "func": "let alarme = String(msg.payload).trim();\nlet texteMessage = \"\";\n\n// 1. Récupération de la mémoire des défauts actifs\nlet defautsActifs = context.get(\"defautsActifs\") || {\n    pompe: null,\n    ventilo: null,\n    chauffage: null,\n    dehumidifier: null\n};\n\n// 2. Gestion des apparitions ET des disparitions de défauts\nif (alarme === \"ALARME_POMPE_TIMEOUT\") {\n    defautsActifs.pompe = \"Pompe principale en timeout (Pompe sup. active)\";\n    texteMessage = \"🚨 ALERTE POMPE : La pompe principale tourne depuis trop longtemps ! Pompe supplémentaire activée.\";\n} else if (alarme === \"Pompe_off_citerne_vide\") {\n    defautsActifs.pompe = \"Citerne vide (<= 10%) - Pompes arrêtées\";\n    texteMessage = \"⚠️ ALERTE CITERNE VIDE : Niveau d'eau insuffisant (<= 10%). Arrêt de sécurité des pompes.\";\n} else if (alarme === \"Pas_d'alarme_Pompe\") {\n    // On envoie un message de fin d'alerte UNIQUEMENT s'il y avait un défaut actif avant\n    if (defautsActifs.pompe !== null) {\n        texteMessage = \"✅ FIN D'ALERTE POMPE / CITERNE : Fonctionnement normal rétabli.\";\n        defautsActifs.pompe = null;\n    }\n\n} else if (alarme === \"ALARME_VENTILO_TIMEOUT\") {\n    defautsActifs.ventilo = \"Ventilateur principal en timeout (Ventilo sup. actif)\";\n    texteMessage = \"🚨 ALERTE VENTILATION : Défaut de refroidissement détecté. Ventilateur supplémentaire activé.\";\n} else if (alarme === \"Pas_d'alarme_Ventilo\") {\n    if (defautsActifs.ventilo !== null) {\n        texteMessage = \"✅ FIN D'ALERTE VENTILATION : Fonctionnement normal rétabli.\";\n        defautsActifs.ventilo = null;\n    }\n\n} else if (alarme === \"ALARME_CHAUFFAGE_TIMEOUT\") {\n    defautsActifs.chauffage = \"Chauffage principal en timeout (Chauffage sup. actif)\";\n    texteMessage = \"🚨 ALERTE CHAUFFAGE : Défaut de chauffe détecté. Chauffage supplémentaire activé.\";\n} else if (alarme === \"Pas_d'alarme_Chauffage\") {\n    if (defautsActifs.chauffage !== null) {\n        texteMessage = \"✅ FIN D'ALERTE CHAUFFAGE : Fonctionnement normal rétabli.\";\n        defautsActifs.chauffage = null;\n    }\n\n} else if (alarme === \"ALARME_DEHUMIDIFIER_TIMEOUT\") {\n    defautsActifs.dehumidifier = \"Déshumidificateur principal en timeout (Sup. actif)\";\n    texteMessage = \"🚨 ALERTE DÉSHUMIDIFICATEUR : Fonctionnement continu excessif. Appareil supplémentaire activé.\";\n} else if (alarme === \"Pas_d'alarme_Dehumidificateur\") {\n    if (defautsActifs.dehumidifier !== null) {\n        texteMessage = \"✅ FIN D'ALERTE DÉSHUMIDIFICATEUR : Fonctionnement normal rétabli.\";\n        defautsActifs.dehumidifier = null;\n    }\n\n// 3. Gestion de la connexion / reconnexion avec bilan complet des défauts\n} else if (alarme === \"offline\") {\n    texteMessage = \"🔴 STATION HORS LIGNE : Perte d'alimentation ou coupure réseau à Ain Naadja !\";\n\n} else if (alarme === \"online\") {\n    // Recherche de tous les défauts encore actifs en mémoire\n    let listeDefauts = Object.values(defautsActifs).filter(d => d !== null);\n    \n    if (listeDefauts.length > 0) {\n        texteMessage = \"🟢 STATION EN LIGNE : Connexion rétablie à Ain Naadja.\\n\\n⚠️ DÉFAUTS ACTUELS EN COURS :\\n• \" + listeDefauts.join(\"\\n• \");\n    } else {\n        texteMessage = \"🟢 STATION EN LIGNE : Connexion rétablie à Ain Naadja.\\n✅ Aucun défaut en cours.\";\n    }\n}\n\n// Sauvegarde de l'état mis à jour dans la mémoire du nœud\ncontext.set(\"defautsActifs\", defautsActifs);\n\n// Si aucun message pertinent n'a été généré, on bloque l'envoi\nif (texteMessage === \"\") {\n    return null;\n}\n\n// Préparation du paquet attendu par le nœud telegram sender\nmsg.payload = {\n    chatId: 6837941372,\n    type: \"message\",\n    content: texteMessage\n};\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1730,
+        "y": 1240,
+        "wires": [
+            [
+                "850d21caf155c1eb",
+                "cf6da1f9446fbc6c"
+            ]
+        ]
+    },
+    {
+        "id": "661d4db1a285a59a",
+        "type": "rbe",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1070,
+        "y": 200,
+        "wires": [
+            [
+                "29ac80bb824d59e7"
+            ]
+        ]
+    },
+    {
+        "id": "8ead8e2539add9d4",
+        "type": "rbe",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1110,
+        "y": 480,
+        "wires": [
+            [
+                "29ac80bb824d59e7"
+            ]
+        ]
+    },
+    {
+        "id": "19b43a581dd8fec7",
+        "type": "rbe",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1110,
+        "y": 720,
+        "wires": [
+            [
+                "29ac80bb824d59e7"
+            ]
+        ]
+    },
+    {
+        "id": "6f9abee213891266",
+        "type": "rbe",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1110,
+        "y": 960,
+        "wires": [
+            [
+                "29ac80bb824d59e7"
+            ]
+        ]
+    },
+    {
+        "id": "dad550d5fd2e1311",
+        "type": "rbe",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 910,
+        "y": 1680,
+        "wires": [
+            [
+                "29ac80bb824d59e7"
+            ]
+        ]
+    },
+    {
+        "id": "9d013a483a55d536",
+        "type": "mqtt in",
+        "z": "a7f113151a4d4e20",
+        "name": "",
+        "topic": "almikatro/yahi/#",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "aba54a98a7aec3f0",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1720,
+        "y": 1320,
+        "wires": [
+            [
+                "7b2a4025a97a5c3e"
+            ]
+        ]
+    },
+    {
+        "id": "7b2a4025a97a5c3e",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Memoire Globale Station",
+        "func": "// Initialisation par défaut (état hors ligne / sans données)\nlet etat = global.get(\"etat_station\") || {\n    temp: \"--\",\n    humidity: \"--\",\n    soil: \"--\",\n    citerne: \"--\",\n    pompe_p: \"??\",\n    pompe_s: \"??\",\n    ventilo_p: \"??\",\n    ventilo_s: \"??\",\n    dehum_p: \"??\",\n    dehum_s: \"??\",\n    chauffage_p: \"??\",\n    chauffage_s: \"??\",\n    statut: \"🔴 HORS LIGNE\"\n};\n\nlet topic = String(msg.topic || \"\").trim();\nlet texte = String(msg.payload || \"\").trim();\n\n// 1. Gestion du Statut (Remise à zéro immédiate si HORS LIGNE)\nif (topic === \"almikatro/yahi/status\") {\n    if (texte === \"offline\") {\n        etat = {\n            temp: \"--\",\n            humidity: \"--\",\n            soil: \"--\",\n            citerne: \"--\",\n            pompe_p: \"??\",\n            pompe_s: \"??\",\n            ventilo_p: \"??\",\n            ventilo_s: \"??\",\n            dehum_p: \"??\",\n            dehum_s: \"??\",\n            chauffage_p: \"??\",\n            chauffage_s: \"??\",\n            statut: \"🔴 HORS LIGNE\"\n        };\n        global.set(\"etat_station\", etat);\n        return null;\n    } else if (texte === \"online\") {\n        etat.statut = \"🟢 EN LIGNE\";\n    }\n}\n\n// 2. Mise à jour des capteurs (uniquement si un message valide arrive)\nif (topic === \"almikatro/yahi/temp\" && texte !== \"\") {\n    etat.temp = texte;\n} else if (topic === \"almikatro/yahi/humidity\" && texte !== \"\") {\n    etat.humidity = texte;\n} else if (topic === \"almikatro/yahi/percent_soil_citern\" && texte !== \"\") {\n    try {\n        let data = JSON.parse(texte);\n        if (data.Soil !== undefined) etat.soil = data.Soil;\n        if (data.citerne !== undefined) etat.citerne = data.citerne;\n    } catch (e) {}\n}\n\n// 3. Mise à jour des équipements via le topic cmd\nelse if (topic === \"almikatro/yahi/cmd\") {\n    if (texte === \"Pompe_on\") etat.pompe_p = \"ON\";\n    if (texte === \"Pompe_off\") etat.pompe_p = \"OFF\";\n    if (texte === \"Pompe_off_citerne_vide\") { etat.pompe_p = \"OFF (Citerne vide)\"; etat.pompe_s = \"OFF\"; }\n    if (texte === \"ALARME_POMPE_TIMEOUT\") etat.pompe_s = \"ON\";\n    if (texte === \"Pas_d'alarme_Pompe\") etat.pompe_s = \"OFF\";\n\n    if (texte === \"Ventilo_on\") etat.ventilo_p = \"ON\";\n    if (texte === \"Ventilo_off\") etat.ventilo_p = \"OFF\";\n    if (texte === \"ALARME_VENTILO_TIMEOUT\") etat.ventilo_s = \"ON\";\n    if (texte === \"Pas_d'alarme_Ventilo\") etat.ventilo_s = \"OFF\";\n\n    if (texte === \"dehumidifier_on\") etat.dehum_p = \"ON\";\n    if (texte === \"dehumidifier_off\") etat.dehum_p = \"OFF\";\n    if (texte === \"ALARME_DEHUMIDIFIER_TIMEOUT\") etat.dehum_s = \"ON\";\n    if (texte === \"Pas_d'alarme_Dehumidificateur\") etat.dehum_s = \"OFF\";\n\n    if (texte === \"chauffage_on\") etat.chauffage_p = \"ON\";\n    if (texte === \"chauffage_off\") etat.chauffage_p = \"OFF\";\n    if (texte === \"ALARME_CHAUFFAGE_TIMEOUT\") etat.chauffage_s = \"ON\";\n    if (texte === \"Pas_d'alarme_Chauffage\") etat.chauffage_s = \"OFF\";\n}\n\nglobal.set(\"etat_station\", etat);\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2050,
+        "y": 1320,
+        "wires": [
+            [
+                "25596314c1ed3977"
+            ]
+        ]
+    },
+    {
+        "id": "4cb90fa53ca5e053",
+        "type": "telegram receiver",
+        "z": "a7f113151a4d4e20",
+        "name": "Station Ain Naadja",
+        "bot": "2498759f5bfed7ea",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "hasinput": false,
+        "inputs": 0,
+        "handleallupdates": false,
+        "handleprocessupdates": false,
+        "x": 1720,
+        "y": 1400,
+        "wires": [
+            [
+                "2dea1c451c8fbfd7"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f041f8576814df0a",
+        "type": "telegram sender",
+        "z": "a7f113151a4d4e20",
+        "name": "Station Ain Naadja",
+        "bot": "2498759f5bfed7ea",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 2170,
+        "y": 1400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2dea1c451c8fbfd7",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Reponse Info",
+        "func": "let chatId = msg.payload.chatId;\nif (chatId !== 6837941372) {\n    return null;\n}\n\nlet texte = String(msg.payload.content || \"\").trim().toLowerCase();\n\nif (texte === \"info\") {\n    let e = global.get(\"etat_station\") || {};\n\n    let bilan = \"📊 ÉTAT ACTUEL - STATION AIN NAADJA\\n\" +\n                \"Statut : \" + (e.statut ?? \"🔴 HORS LIGNE\") + \"\\n\\n\" +\n                \"🌡️ Température : \" + (e.temp ?? \"--\") + \" °C\\n\" +\n                \"💧 Humidité Air : \" + (e.humidity ?? \"--\") + \" %\\n\" +\n                \"🌱 Humidité Sol : \" + (e.soil ?? \"--\") + \" %\\n\" +\n                \"🛢️ Citerne : \" + (e.citerne ?? \"--\") + \" %\\n\\n\" +\n                \"⚙️ ÉQUIPEMENTS :\\n\" +\n                \"• Pompes : Princ. [\" + (e.pompe_p ?? \"??\") + \"] | Sup. [\" + (e.pompe_s ?? \"??\") + \"]\\n\" +\n                \"• Ventilateurs : Princ. [\" + (e.ventilo_p ?? \"??\") + \"] | Sup. [\" + (e.ventilo_s ?? \"??\") + \"]\\n\" +\n                \"• Déshumidif. : Princ. [\" + (e.dehum_p ?? \"??\") + \"] | Sup. [\" + (e.dehum_s ?? \"??\") + \"]\\n\" +\n                \"• Chauffages : Princ. [\" + (e.chauffage_p ?? \"??\") + \"] | Sup. [\" + (e.chauffage_s ?? \"??\") + \"]\";\n\n    msg.payload = {\n        chatId: chatId,\n        type: \"message\",\n        content: bilan\n    };\n    return msg;\n}\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1910,
+        "y": 1400,
+        "wires": [
+            [
+                "f041f8576814df0a"
+            ]
+        ]
+    },
+    {
+        "id": "2780149d4ae8bbb4",
         "type": "global-config",
         "env": [],
         "modules": {
             "node-red-contrib-influxdb": "0.7.0",
             "@flowfuse/node-red-dashboard": "1.36.0",
+            "node-red-contrib-telegrambot": "19.0.3",
             "node-red-contrib-web-worldmap": "5.9.1"
         }
     }
