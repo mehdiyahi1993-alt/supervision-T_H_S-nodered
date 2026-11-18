@@ -1410,7 +1410,7 @@
         "type": "function",
         "z": "a7f113151a4d4e20",
         "name": "Créer CSV temps réel",
-        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Ventilateur_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Ventilateur\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Ventilateur\") || 0;\n\n// Calcul du temps additionnel en direct si le Ventilateur marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Ventilateur Principal (min);Ventilateur Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
+        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Ventilo_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Ventilateur\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Ventilateur\") || 0;\n\n// Calcul du temps additionnel en direct si le Ventilateur marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Ventilateur Principal (min);Ventilateur Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2001,7 +2001,7 @@
         "iconPosition": "left",
         "payload": "",
         "payloadType": "str",
-        "topic": "CLIC_MANUELChauffage",
+        "topic": "CLIC_MANUELVentilateur",
         "topicType": "str",
         "buttonColor": "",
         "textColor": "",
@@ -2062,7 +2062,7 @@
         "type": "function",
         "z": "a7f113151a4d4e20",
         "name": "Créer CSV temps réel",
-        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Pompe_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Pompe\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Pomper\") || 0;\n\n// Calcul du temps additionnel en direct si le valeurSoil marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Pompe Principal (min);Pompe Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
+        "func": "// 1. Récupération de l'historique global stocké (jours passés)\nlet historique = global.get(\"Pompe_historique\") || {};\n\n// 2. Récupération des repères de temps en direct\nlet actuelAllumeA = global.get(\"actuel_allumeA_Pompe\") || 0;\nlet actuelAllumeSupA = global.get(\"actuel_allumeSupA_Pompe\") || 0;\n\n// Calcul du temps additionnel en direct si le valeurSoil marche en ce moment même\nlet extraPrincipalSec = actuelAllumeA > 0 ? Math.round((Date.now() - actuelAllumeA) / 1000) : 0;\nlet extraSupSec = actuelAllumeSupA > 0 ? Math.round((Date.now() - actuelAllumeSupA) / 1000) : 0;\n\n// En-tête du fichier CSV\nlet lignes = [\"Date;Pompe Principal (min);Pompe Supplementaire (min)\"];\n\n// 3. Boucle sur les 30 derniers jours\nfor (let i = 0; i < 30; i++) {\n    let d = new Date();\n    d.setDate(d.getDate() - i);\n    \n    const jour = String(d.getDate()).padStart(2, '0');\n    const mois = String(d.getMonth() + 1).padStart(2, '0');\n    const annee = d.getFullYear();\n    const dateCle = jour + \"/\" + mois + \"/\" + annee;\n    \n    let totalPrincipalSec = 0;\n    let totalSupSec = 0;\n    \n    if (historique[dateCle]) {\n        totalPrincipalSec = historique[dateCle].principal || 0;\n        totalSupSec = historique[dateCle].supplementaire || 0;\n    }\n    \n    if (i === 0) {\n        totalPrincipalSec += extraPrincipalSec;\n        totalSupSec += extraSupSec;\n    }\n    \n    let minPrincipal = Math.round(totalPrincipalSec / 60);\n    let minSup = Math.round(totalSupSec / 60);\n    \n    lignes.push(dateCle + \";\" + minPrincipal + \";\" + minSup);\n}\n\nmsg.payload = lignes.join(\"\\r\\n\");\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2938,7 +2938,132 @@
         ]
     },
     {
-        "id": "2780149d4ae8bbb4",
+        "id": "0cf0846140199c01",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject evry 5m",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1400,
+        "y": 2280,
+        "wires": [
+            [
+                "df033ba9537e1a35"
+            ]
+        ]
+    },
+    {
+        "id": "df033ba9537e1a35",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Preparer Sauvegarde Cumuls",
+        "func": "// Récupération des 4 dictionnaires d'historique en mémoire globale\nlet donneesSauvegarde = {\n    ventilo: global.get(\"Ventilo_historique\") || {},\n    pompe: global.get(\"Pompe_historique\") || {},\n    chauffage: global.get(\"chauffage_historique\") || {},\n    dehumidificateur: global.get(\"Dehumidificateur_historique\") || {}\n};\n\n// On convertit l'ensemble en texte JSON pour le stocker proprement dans un champ InfluxDB\nmsg.payload = {\n    backup_json: JSON.stringify(donneesSauvegarde)\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 2280,
+        "wires": [
+            [
+                "ccba9cc2f6bfd49a"
+            ]
+        ]
+    },
+    {
+        "id": "ccba9cc2f6bfd49a",
+        "type": "influxdb out",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb-almikatro",
+        "measurement": "cumuls_30j",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "IOT",
+        "bucket": "almikatro",
+        "x": 2050,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "92b679264bf7dd1e",
+        "type": "inject",
+        "z": "a7f113151a4d4e20",
+        "name": "inject apres 2S",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1400,
+        "y": 2400,
+        "wires": [
+            [
+                "0d24d93e1a87bb3c"
+            ]
+        ]
+    },
+    {
+        "id": "0d24d93e1a87bb3c",
+        "type": "influxdb in",
+        "z": "a7f113151a4d4e20",
+        "influxdb": "c22aceb6f5111259",
+        "name": "influxdb in",
+        "query": "from(bucket: \"almikatro\")\n  |> range(start: -30d)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cumuls_30j\" and r[\"_field\"] == \"backup_json\")\n  |> last()\n",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "IOT",
+        "x": 1660,
+        "y": 2400,
+        "wires": [
+            [
+                "72d39cd07dc316d1"
+            ]
+        ]
+    },
+    {
+        "id": "72d39cd07dc316d1",
+        "type": "function",
+        "z": "a7f113151a4d4e20",
+        "name": "Restaurer Cumuls",
+        "func": "let resultats = msg.payload;\n\nif (Array.isArray(resultats) && resultats.length > 0 && resultats[0]._value) {\n    try {\n        let sauvegarde = JSON.parse(resultats[0]._value);\n\n        if (sauvegarde.ventilo) global.set(\"Ventilo_historique\", sauvegarde.ventilo);\n        if (sauvegarde.pompe) global.set(\"Pompe_historique\", sauvegarde.pompe);\n        if (sauvegarde.chauffage) global.set(\"chauffage_historique\", sauvegarde.chauffage);\n        if (sauvegarde.dehumidificateur) global.set(\"Dehumidificateur_historique\", sauvegarde.dehumidificateur);\n\n        node.status({fill: \"green\", shape: \"dot\", text: \"Historiques 30j restaurés\"});\n    } catch (e) {\n        node.error(\"Erreur lecture sauvegarde InfluxDB : \" + e.message);\n    }\n} else {\n    node.status({fill: \"yellow\", shape: \"ring\", text: \"Aucune sauvegarde trouvée\"});\n}\n\nreturn null;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1890,
+        "y": 2400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "959356f43a07bee5",
         "type": "global-config",
         "env": [],
         "modules": {
